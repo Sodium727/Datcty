@@ -44,6 +44,7 @@ packer.startup(function(use)
   use 'nvim-treesitter/playground'
   use 'numToStr/Comment.nvim'
   use 'simrat39/symbols-outline.nvim' -- Plugin for symbol outline
+  use 'hrsh7th/cmp-nvim-lsp-signature-help' -- Plugin for signature help
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -138,6 +139,7 @@ cmp.setup({
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'nvim_lsp_signature_help' },
   }
 })
 
