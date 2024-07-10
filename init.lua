@@ -44,7 +44,8 @@ packer.startup(function(use)
   use 'nvim-treesitter/playground'
   use 'numToStr/Comment.nvim'
   use 'simrat39/symbols-outline.nvim' -- Plugin for symbol outline
-  use 'hrsh7th/cmp-nvim-lsp-signature-help' -- Plugin for signature help
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use 'tanvirtin/monokai.nvim'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -166,8 +167,14 @@ require('symbols-outline').setup()
 -- Keybinding for symbols outline
 vim.api.nvim_set_keymap('n', '<leader>o', ':SymbolsOutline<CR>', { noremap = true, silent = true })
 
+-- Configure monokai theme
+require('monokai').setup {}
+require('monokai').setup { palette = require('monokai').pro }
+require('monokai').setup { palette = require('monokai').soda }
+require('monokai').setup { palette = require('monokai').ristretto }
+
 -- Set colorscheme
-vim.cmd('colorscheme retrobox')
+vim.cmd('colorscheme monokai')
 
 -- Enable syntax highlighting
 vim.cmd('syntax on')
@@ -188,4 +195,6 @@ vim.opt.relativenumber = true
 vim.opt.ruler = true
 
 vim.opt.mouse = "a"
+
+vim.opt.wrapscan = true
 
