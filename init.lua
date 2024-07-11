@@ -1,62 +1,45 @@
 -- https://chatgpt.com/share/6c0267ed-0eb9-4ff6-920b-3ec64013a272
 
--- git clone --depth 1 https://github.com/wbthomason/packer.nvim `
---   $env:LOCALAPPDATA\nvim\site\pack\packer\start\packer.nvim
+-- git clone --depth 1 https://github.com/folke/lazy.nvim C:\Users\Admin\Appdata\Local\nvim\site\pack\lazy\start\lazy.nvim
 
 
-
--- Ensure packer.nvim is installed
-local ensure_packer = function()
+-- Ensure lazy.nvim is installed
+local ensure_lazy = function()
   local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data')..'/site/pack/lazy/start/lazy.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/folke/lazy.nvim', install_path})
+    vim.cmd [[packadd lazy.nvim]]
     return true
   end
   return false
 end
 
-local packer_bootstrap = ensure_packer()
+local lazy_bootstrap = ensure_lazy()
 
 -- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
+local status_ok, lazy = pcall(require, "lazy")
 if not status_ok then
   return
 end
 
--- Have packer use a popup window
-packer.init {
-  display = {
-    open_fn = function()
-      return require('packer.util').float { border = 'rounded' }
-    end,
-  },
-}
-
--- Install your plugins here
-packer.startup(function(use)
-  -- My plugins here
-  use 'wbthomason/packer.nvim' -- Have packer manage itself
-  use 'nvim-treesitter/nvim-treesitter'
-  use 'neovim/nvim-lspconfig'
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'L3MON4D3/LuaSnip'
-  use 'windwp/nvim-autopairs'
-  use 'nvim-treesitter/playground'
-  use 'numToStr/Comment.nvim'
-  use 'simrat39/symbols-outline.nvim' -- Plugin for symbol outline
-  use 'hrsh7th/cmp-nvim-lsp-signature-help'
-  use 'tanvirtin/monokai.nvim'
-  use 'navarasu/onedark.nvim'
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+-- Define your plugins here
+lazy.setup({
+  'wbthomason/packer.nvim', -- Have packer manage itself
+  'nvim-treesitter/nvim-treesitter',
+  'neovim/nvim-lspconfig',
+  'hrsh7th/nvim-cmp',
+  'hrsh7th/cmp-nvim-lsp',
+  'L3MON4D3/LuaSnip',
+  'windwp/nvim-autopairs',
+  'nvim-treesitter/playground',
+  'numToStr/Comment.nvim',
+  'simrat39/symbols-outline.nvim', -- Plugin for symbol outline
+  'hrsh7th/cmp-nvim-lsp-signature-help',
+  'tanvirtin/monokai.nvim',
+  'navarasu/onedark.nvim',
+  -- Add any other plugins you need here
+})
 
 -- Treesitter configuration
 require'nvim-treesitter.configs'.setup {
@@ -183,6 +166,11 @@ require('onedark').setup {
 }
 require('onedark').load()
 
+-- Ensure lazy.nvim is bootstrapped
+if lazy_bootstrap then
+  require('lazy').sync()
+end
+
 -- Enable syntax highlighting
 vim.cmd('syntax on')
 
@@ -201,4 +189,3 @@ vim.opt.ruler = true
 
 vim.opt.mouse = "a"
 vim.opt.wrapscan = true
-
