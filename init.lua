@@ -1,5 +1,8 @@
+-- https://chatgpt.com/share/6c0267ed-0eb9-4ff6-920b-3ec64013a272
+
 -- git clone --depth 1 https://github.com/wbthomason/packer.nvim `
 --   $env:LOCALAPPDATA\nvim\site\pack\packer\start\packer.nvim
+
 
 
 -- Ensure packer.nvim is installed
@@ -46,6 +49,7 @@ packer.startup(function(use)
   use 'simrat39/symbols-outline.nvim' -- Plugin for symbol outline
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use 'tanvirtin/monokai.nvim'
+  use 'navarasu/onedark.nvim'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -168,13 +172,16 @@ require('symbols-outline').setup()
 vim.api.nvim_set_keymap('n', '<leader>o', ':SymbolsOutline<CR>', { noremap = true, silent = true })
 
 -- Configure monokai theme
-require('monokai').setup {}
-require('monokai').setup { palette = require('monokai').pro }
-require('monokai').setup { palette = require('monokai').soda }
-require('monokai').setup { palette = require('monokai').ristretto }
+-- require('monokai').setup {}
+-- require('monokai').setup { palette = require('monokai').pro }
+-- require('monokai').setup { palette = require('monokai').soda }
+-- require('monokai').setup { palette = require('monokai').ristretto }
 
--- Set colorscheme
-vim.cmd('colorscheme monokai')
+--Configure onedark theme
+require('onedark').setup {
+    style = 'darker'
+}
+require('onedark').load()
 
 -- Enable syntax highlighting
 vim.cmd('syntax on')
@@ -185,16 +192,13 @@ vim.opt.smartindent = true
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
-vim.opt.hlsearch = false
-
 vim.opt.smartcase = true
 
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 vim.opt.ruler = true
 
 vim.opt.mouse = "a"
-
 vim.opt.wrapscan = true
 
