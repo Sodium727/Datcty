@@ -48,7 +48,44 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
+  indent = {
+    enable = true,
+  },
+  fold = {
+      enable = true,
+      disable = {};
+  }
 }
+
+-- Use Treesitter for folding
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldlevelstart = 99 -- Open all folds by default
+
+-- Optional: Map keys to quickly open/close folds
+vim.api.nvim_set_keymap('n', 'za', 'za', { noremap = true, silent = true })  -- Toggle fold
+-- vim.api.nvim_set_keymap('n', 'zc', 'zc', { noremap = true, silent = true })  -- Close fold
+-- vim.api.nvim_set_keymap('n', 'zo', 'zo', { noremap = true, silent = true })  -- Open fold
+
+-- Custom fold text
+vim.o.foldtext = 'v:lua.custom_fold_text()'
+
+function _G.custom_fold_text()
+  local line = vim.fn.getline(vim.v.foldstart)
+  local num_of_lines = vim.v.foldend - vim.v.foldstart + 1
+  return line .. ' ... ' .. num_of_lines .. ' lines'
+end
+
+-- Open folds when jumping to them
+vim.cmd([[
+  autocmd CursorMoved * normal! zvzz
+]])
+
+function _G.custom_fold_text()
+  local line = vim.fn.getline(vim.v.foldstart)
+  local num_of_lines = vim.v.foldend - vim.v.foldstart + 1
+  return line .. ' ... ' .. num_of_lines .. ' lines'
+end
 
 -- LSP configuration for C++
 local lspconfig = require('lspconfig')
@@ -171,8 +208,7 @@ if lazy_bootstrap then
   require('lazy').sync()
 end
 
--- Enable syntax highlighting
-vim.cmd('syntax on')
+
 
 vim.opt.tabstop = 4
 vim.opt.smarttab = true
