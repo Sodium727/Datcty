@@ -67,24 +67,24 @@ vim.api.nvim_set_keymap('n', 'za', 'za', { noremap = true, silent = true })  -- 
 -- vim.api.nvim_set_keymap('n', 'zo', 'zo', { noremap = true, silent = true })  -- Open fold
 
 -- Custom fold text
-vim.o.foldtext = 'v:lua.custom_fold_text()'
-
-function _G.custom_fold_text()
-  local line = vim.fn.getline(vim.v.foldstart)
-  local num_of_lines = vim.v.foldend - vim.v.foldstart + 1
-  return line .. ' ... ' .. num_of_lines .. ' lines'
-end
+-- vim.o.foldtext = 'v:lua.custom_fold_text()'
+--
+-- function _G.custom_fold_text()
+--   local line = vim.fn.getline(vim.v.foldstart)
+--   local num_of_lines = vim.v.foldend - vim.v.foldstart + 1
+--   return line .. ' ... ' .. num_of_lines .. ' lines'
+-- end
 
 -- Open folds when jumping to them
-vim.cmd([[
-  autocmd CursorMoved * normal! zvzz
-]])
+-- vim.cmd([[
+--   autocmd CursorMoved * normal! zvzz
+-- ]])
 
-function _G.custom_fold_text()
-  local line = vim.fn.getline(vim.v.foldstart)
-  local num_of_lines = vim.v.foldend - vim.v.foldstart + 1
-  return line .. ' ... ' .. num_of_lines .. ' lines'
-end
+-- function _G.custom_fold_text()
+--   local line = vim.fn.getline(vim.v.foldstart)
+--   local num_of_lines = vim.v.foldend - vim.v.foldstart + 1
+--   return line .. ' ... ' .. num_of_lines .. ' lines'
+-- end
 
 -- LSP configuration for C++
 local lspconfig = require('lspconfig')
@@ -207,6 +207,25 @@ if lazy_bootstrap then
   require('lazy').sync()
 end
 
+-- Function to copy selected text to system clipboard
+vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
+
+-- Function to paste text from system clipboard
+vim.api.nvim_set_keymap('n', '<C-v>', '"+p', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-v>', '<C-r>+', { noremap = true, silent = true })
+
+-- Common shortcuts similar to other editors
+vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-x>', '"+d', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-x>', '"+d', { noremap = true, silent = true })
+
+-- Undo and Redo
+vim.api.nvim_set_keymap('n', '<C-z>', 'u', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-z>', '<Esc>u', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-y>', '<C-r>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-y>', '<Esc><C-r>', { noremap = true, silent = true })
 
 
 vim.opt.tabstop = 4
