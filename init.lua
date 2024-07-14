@@ -25,7 +25,6 @@ end
 
 -- Define your plugins here
 lazy.setup({
-  'wbthomason/packer.nvim', -- Have packer manage itself
   'nvim-treesitter/nvim-treesitter',
   'neovim/nvim-lspconfig',
   'hrsh7th/nvim-cmp',
