@@ -37,12 +37,17 @@ lazy.setup({
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'tanvirtin/monokai.nvim',
   'navarasu/onedark.nvim',
+  'shaunsingh/solarized.nvim',
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+  },
   -- Add any other plugins you need here
 })
 
 -- Treesitter configuration
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "bash", "c", "cpp", "css", "dockerfile", "go", "html", "javascript", "json", "lua", "markdown", "python", "ruby", "rust", "toml", "typescript", "yaml" },
+  ensure_installed = { "c", "cpp", "css", "html", "javascript", "json", "lua", "markdown", "python", "rust", "typescript",},
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
@@ -57,12 +62,12 @@ require'nvim-treesitter.configs'.setup {
 }
 
 -- Use Treesitter for folding
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
-vim.o.foldlevelstart = 99 -- Open all folds by default
+-- vim.o.foldmethod = 'expr'
+-- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+-- vim.o.foldlevelstart = 99 -- Open all folds by default
 
 -- Optional: Map keys to quickly open/close folds
-vim.api.nvim_set_keymap('n', 'za', 'za', { noremap = true, silent = true })  -- Toggle fold
+-- vim.api.nvim_set_keymap('n', 'za', 'za', { noremap = true, silent = true })  -- Toggle fold
 -- vim.api.nvim_set_keymap('n', 'zc', 'zc', { noremap = true, silent = true })  -- Close fold
 -- vim.api.nvim_set_keymap('n', 'zo', 'zo', { noremap = true, silent = true })  -- Open fold
 
@@ -76,9 +81,9 @@ vim.api.nvim_set_keymap('n', 'za', 'za', { noremap = true, silent = true })  -- 
 -- end
 
 -- Open folds when jumping to them
--- vim.cmd([[
---   autocmd CursorMoved * normal! zvzz
--- ]])
+vim.cmd([[
+  autocmd CursorMoved * normal! zvzz
+]])
 
 -- function _G.custom_fold_text()
 --   local line = vim.fn.getline(vim.v.foldstart)
@@ -104,7 +109,6 @@ lspconfig.clangd.setup{
       buf_map(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
       buf_map(bufnr, 'n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
       buf_map(bufnr, 'n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-      buf_map(bufnr, 'n', 'F2', '<cmd>lua vim.lsp.buf.rename()<CR>')
       buf_map(bufnr, 'n', 'gl', '<cmd>lua vim.diagnostic.open_float()<CR>')
       buf_map(bufnr, 'n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
     end,
@@ -198,9 +202,26 @@ vim.api.nvim_set_keymap('n', '<leader>o', ':SymbolsOutline<CR>', { noremap = tru
 
 --Configure onedark theme
 require('onedark').setup {
-    style = 'darker'
+  style = 'darker',
+  transparent = false,
 }
-require('onedark').load()
+-- require('onedark').load()
+
+-- Configure solarized theme
+vim.g.solarized_italic_comments = true
+vim.g.solarized_disable_background = false
+vim.g.solarized_italic_keywords = true
+vim.g.solarized_italic_functions = false
+vim.g.solarized_italic_variables = false
+require('solarized').set()
+
+-- Configure Lualine
+require('lualine').setup {
+  -- options = {
+  --   -- ... your lualine config
+  --   -- theme = 'solarized'
+  -- }
+}
 
 -- Ensure lazy.nvim is bootstrapped
 if lazy_bootstrap then
@@ -215,17 +236,17 @@ vim.api.nvim_set_keymap('n', '<C-v>', '"+p', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<C-v>', '<C-r>+', { noremap = true, silent = true })
 
 -- Common shortcuts similar to other editors
-vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-x>', '"+d', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-x>', '"+d', { noremap = true, silent = true })
 
 -- Undo and Redo
-vim.api.nvim_set_keymap('n', '<C-z>', 'u', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-z>', '<Esc>u', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-y>', '<C-r>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-y>', '<Esc><C-r>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-z>', 'u', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<C-z>', '<Esc>u', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-y>', '<C-r>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<C-y>', '<Esc><C-r>', { noremap = true, silent = true })
 
 
 vim.opt.tabstop = 4
@@ -243,3 +264,5 @@ vim.opt.ruler = true
 
 vim.opt.mouse = "a"
 vim.opt.wrapscan = true
+vim.opt.wrap = true
+
