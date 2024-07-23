@@ -62,23 +62,23 @@ require'nvim-treesitter.configs'.setup {
 }
 
 -- Use Treesitter for folding
--- vim.o.foldmethod = 'expr'
--- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
--- vim.o.foldlevelstart = 99 -- Open all folds by default
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldlevelstart = 99 -- Open all folds by default
 
 -- Optional: Map keys to quickly open/close folds
--- vim.api.nvim_set_keymap('n', 'za', 'za', { noremap = true, silent = true })  -- Toggle fold
+vim.api.nvim_set_keymap('n', 'za', 'za', { noremap = true, silent = true })  -- Toggle fold
 -- vim.api.nvim_set_keymap('n', 'zc', 'zc', { noremap = true, silent = true })  -- Close fold
 -- vim.api.nvim_set_keymap('n', 'zo', 'zo', { noremap = true, silent = true })  -- Open fold
 
 -- Custom fold text
--- vim.o.foldtext = 'v:lua.custom_fold_text()'
+vim.o.foldtext = 'v:lua.custom_fold_text()'
 --
--- function _G.custom_fold_text()
---   local line = vim.fn.getline(vim.v.foldstart)
---   local num_of_lines = vim.v.foldend - vim.v.foldstart + 1
---   return line .. ' ... ' .. num_of_lines .. ' lines'
--- end
+function _G.custom_fold_text()
+  local line = vim.fn.getline(vim.v.foldstart)
+  local num_of_lines = vim.v.foldend - vim.v.foldstart + 1
+  return line .. ' ... ' .. num_of_lines .. ' lines'
+end
 
 -- Open folds when jumping to them
 vim.cmd([[
@@ -195,7 +195,7 @@ require('symbols-outline').setup()
 vim.api.nvim_set_keymap('n', '<leader>o', ':SymbolsOutline<CR>', { noremap = true, silent = true })
 
 -- Configure monokai theme
--- require('monokai').setup {}
+require('monokai').setup {}
 -- require('monokai').setup { palette = require('monokai').pro }
 -- require('monokai').setup { palette = require('monokai').soda }
 -- require('monokai').setup { palette = require('monokai').ristretto }
@@ -213,7 +213,7 @@ vim.g.solarized_disable_background = false
 vim.g.solarized_italic_keywords = true
 vim.g.solarized_italic_functions = false
 vim.g.solarized_italic_variables = false
-require('solarized').set()
+-- require('solarized').set()
 
 -- Configure Lualine
 require('lualine').setup {
