@@ -29,7 +29,6 @@ lazy.setup({
   'neovim/nvim-lspconfig',
   'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
-  'L3MON4D3/LuaSnip',
   'windwp/nvim-autopairs',
   'nvim-treesitter/playground',
   'numToStr/Comment.nvim',
@@ -37,7 +36,7 @@ lazy.setup({
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'tanvirtin/monokai.nvim',
   'navarasu/onedark.nvim',
-  'shaunsingh/solarized.nvim',
+  'L3MON4D3/LuaSnip',
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' }
@@ -84,12 +83,6 @@ end
 vim.cmd([[
   autocmd CursorMoved * normal! zvzz
 ]])
-
--- function _G.custom_fold_text()
---   local line = vim.fn.getline(vim.v.foldstart)
---   local num_of_lines = vim.v.foldend - vim.v.foldstart + 1
---   return line .. ' ... ' .. num_of_lines .. ' lines'
--- end
 
 -- LSP configuration for C++
 local lspconfig = require('lspconfig')
@@ -183,7 +176,6 @@ cmp.event:on(
 
 require('Comment').setup()
 
-
 -- Keybinding for commenting
 vim.api.nvim_set_keymap('n', '<C-_>', ':lua require("Comment.api").toggle.linewise.current()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-_>', ':lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', { noremap = true, silent = true })
@@ -207,20 +199,34 @@ require('onedark').setup {
 }
 -- require('onedark').load()
 
--- Configure solarized theme
-vim.g.solarized_italic_comments = true
-vim.g.solarized_disable_background = false
-vim.g.solarized_italic_keywords = true
-vim.g.solarized_italic_functions = false
-vim.g.solarized_italic_variables = false
--- require('solarized').set()
-
 -- Configure Lualine
+-- Lualine setup
 require('lualine').setup {
-  -- options = {
-  --   -- ... your lualine config
-  --   -- theme = 'solarized'
-  -- }
+  options = {
+    icons_enabled = true,
+    section_separators = { left = '', right = '' },
+    component_separators = { left = '', right = '' },
+    disabled_filetypes = {},
+    always_divide_middle = true,
+  },
+  sections = {
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch' },
+    lualine_c = { 'filename' },
+    lualine_x = { 'encoding', 'fileformat', 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { 'filename' },
+    lualine_x = { 'location' },
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  extensions = {}
 }
 
 -- Ensure lazy.nvim is bootstrapped
