@@ -187,7 +187,7 @@ require('symbols-outline').setup()
 vim.api.nvim_set_keymap('n', '<leader>o', ':SymbolsOutline<CR>', { noremap = true, silent = true })
 
 -- Configure monokai theme
-require('monokai').setup {}
+-- require('monokai').setup {}
 -- require('monokai').setup { palette = require('monokai').pro }
 -- require('monokai').setup { palette = require('monokai').soda }
 -- require('monokai').setup { palette = require('monokai').ristretto }
@@ -197,7 +197,7 @@ require('onedark').setup {
   style = 'darker',
   transparent = false,
 }
--- require('onedark').load()
+require('onedark').load()
 
 -- Configure Lualine
 -- Lualine setup
