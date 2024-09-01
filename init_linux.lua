@@ -41,9 +41,18 @@ packer.startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons' }
   }
+  -- Deoplete for completion
+  use {
+    'Shougo/deoplete.nvim',
+    run = ':UpdateRemotePlugins'
+  }
+  -- Syntax Highlighting
+  use 'sheerun/vim-polyglot'
+  -- LSP client
 end)
 
-
+-- Deoplete configuration
+vim.g.deoplete_enable_at_startup = 1
 
 -- Open folds when jumping to them
 vim.cmd([[
