@@ -255,10 +255,10 @@ vim.api.nvim_set_keymap('v', '<C-x>', '"+d', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('i', '<C-y>', '<Esc><C-r>', { noremap = true, silent = true })
 
 
-vim.opt.tabstop = 4
+vim.opt.tabstop = 2
 vim.opt.smarttab = true
 vim.opt.smartindent = true
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 vim.opt.smartcase = true
