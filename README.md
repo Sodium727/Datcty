@@ -1,1 +1,1 @@
-This is my personal init.lua configuration file for Neovim.
+Files that would be useful for terminal use.
