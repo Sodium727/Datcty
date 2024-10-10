@@ -1,0 +1,123 @@
+
+Configuring Neovim for C/C++ programming in WSL with Ubuntu 24.04 involves several steps. Below is a guide to set up your Neovim environment with autocomplete, built-in function definitions, syntax highlighting, and more.
+
+Step 1: Install Neovim
+If you haven’t installed Neovim yet, you can do so using the following commands:
+
+sudo apt update
+sudo apt install neovim
+
+
+
+Step 2: Install a Plugin Manager
+We’ll use Packer.nvim as a plugin manager. First, ensure that you have git installed:
+
+sudo apt install git
+
+
+
+Then, install Packer:
+
+mkdir -p ~/.config/nvim
+git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+    ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+
+
+Install build-essential:
+
+This package contains the GCC compiler and other essential tools for building software.
+
+sudo apt install build-essential
+
+
+
+Step 3: Configure Neovim
+Create or edit the init.lua file in ~/.config/nvim/:
+
+nvim ~/.config/nvim/init.lua
+
+Add the following configuration:
+
+-- Bootstrap packer
+vim.cmd [[packadd packer.nvim]]
+
+require('packer').startup(function(use)
+    -- Packer can manage itself
+    use 'wbthomason/packer.nvim'
+
+    -- LSP Configuration
+    use {
+        'neovim/nvim-lspconfig',
+        requires = {
+            'hrsh7th/nvim-cmp',        -- Completion plugin
+            'hrsh7th/cmp-nvim-lsp',    -- LSP source for nvim-cmp
+            'hrsh7th/cmp-buffer',       -- Buffer completions
+            'hrsh7th/cmp-path',         -- Path completions
+            'hrsh7th/cmp-cmdline',      -- Command line completions
+            'L3MON4D3/LuaSnip',         -- Snippets plugin
+            'saadparwaiz1/cmp_luasnip'  -- Snippets source for nvim-cmp
+        }
+    }
+
+    -- Syntax highlighting
+    use 'nvim-treesitter/nvim-treesitter'  -- Treesitter for syntax highlighting
+
+    -- Auto closing brackets
+    use 'windwp/nvim-autopairs'
+
+    -- Commenting
+    use 'numToStr/Comment.nvim'
+end)
+
+-- Treesitter configuration
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = {"c", "cpp"}, -- Install C and C++ parsers
+    highlight = { enable = true },
+}
+
+-- LSP setup
+local lspconfig = require('lspconfig')
+lspconfig.clangd.setup{}
+
+-- nvim-cmp setup
+local cmp = require'cmp'
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body) -- For luasnip users
+        end,
+    },
+    mapping = {
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'buffer' },
+        { name = 'path' },
+    },
+})
+
+-- Auto pairs setup
+require('nvim-autopairs').setup{}
+
+-- Commenting setup
+require('Comment').setup()
+
+
+
+Step 4: Install Language Server
+For C/C++, you can use clangd. Install it via:
+
+sudo apt install clangd
+
+
+
+Step 5: Install and Compile Plugins
+Open Neovim and run the following command to install the plugins:
+
+:PackerInstall
