@@ -71,6 +71,9 @@ require('packer').startup(function(use)
 
   -- OneDark theme
   use 'navarasu/onedark.nvim' 
+
+  
+  use 'ray-x/lsp_signature.nvim'
 end)
 
 -- Treesitter configuration
@@ -97,6 +100,7 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-a>', 'ggVG', opts) -- Select all
 end
+
 
 -- On attach function to set keymaps
 local on_attach = function(client, bufnr)
@@ -139,6 +143,15 @@ require('Comment').setup()
 -- OneDark theme setup
 require('onedark').load()
 
+require'lsp_signature'.setup({
+  bind = true,            -- This is mandatory, otherwise border config won't get registered.
+  handler_opts = {
+    border = "rounded"    -- Can be "single", "double", "shadow", etc.
+  },
+  hint_enable = true,     -- default: true
+  hi_parameter = "Search", -- how your parameter will be highlighted
+})
+
 
 vim.opt.number = true
 vim.opt.smarttab = true
@@ -150,6 +163,8 @@ vim.opt.smartindent = true
 vim.opt.mouse = a
 
 vim.cmd([[autocmd CursorMoved * normal! zvzz]])
+
+
 
 
 
