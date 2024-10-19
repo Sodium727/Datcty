@@ -121,6 +121,6 @@ vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 EOL
 
 # Install Neovim plugins using Packer
-nvim --headless +PackerInstall +qall
+nvim +PackerInstall
 
 echo "Neovim C/C++ setup complete!"
