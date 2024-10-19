@@ -1,7 +1,12 @@
 #!/bin/bash
 
 # Update and install Neovim, Git, build-essential, and clangd
-sudo apt update && sudo apt install -y neovim git build-essential clangd
+sudo apt update;
+sudo apt upgrade;
+sudo apt install -y neovim;
+sudo apt install -y git;
+sudo apt install -y build-essential;
+sudo apt install -y clangd;
 
 # Install Packer plugin manager
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
