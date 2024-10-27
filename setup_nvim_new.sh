@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Update and install Neovim, Git, build-essential, and clangd
-sudo apt update && sudo apt upgrade -y && sudo apt install -y neovim git build-essential clangd
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y neovim git build-essential clangd dos2unix
 
 # Install Packer plugin manager
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
@@ -152,8 +154,8 @@ fi
 EOL
 
 # Make cpp.sh executable and update PATH
-chmod u+x ~/scripts/cpp.sh
-export PATH=\$PATH:~/scripts
+chmod +x ~/scripts/cpp.sh
+export PATH=$PATH:~/scripts
 
 # Install Neovim plugins using Packer
 nvim +PackerInstall
