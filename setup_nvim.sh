@@ -39,7 +39,7 @@ require('packer').startup(function(use)
   use 'ray-x/lsp_signature.nvim'
 end)
 
--- Treesitter configuration
+-- Treesitter configuration - You might want to comment this part after the languages are compiled.
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {"c", "cpp"},
   highlight = { enable = true },
