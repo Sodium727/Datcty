@@ -2,11 +2,8 @@
 
 # Update and install Neovim, Git, build-essential, and clangd
 sudo apt update 
-sudo apt upgrade
-sudo apt install -y neovim
-sudo apt install -y git
-sudo apt install -y build-essential
-sudo apt install -y clangd
+sudo apt upgrade -y
+sudo apt install -y neovim git build-essential clangd
 
 
 # Install Packer plugin manager
