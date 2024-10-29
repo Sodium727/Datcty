@@ -1,10 +1,21 @@
 #!/bin/bash
+# Bash to automate neovim setup (for C/C++)
+
+
 
 # Update and install Neovim, Git, build-essential, and clangd
 sudo apt update 
 sudo apt upgrade -y
-sudo apt install -y neovim git build-essential clangd
 
+# Make sure to manually install the latest neovim version first (through .deb package)
+# https://github.com/neovim/neovim-releases/releases
+# sudo apt install ./nvim-linux64.deb
+
+# If doesn't work, remove the old neovim:
+# sudo apt remove neovim -y
+# sudo apt remove neovim-runtime -y
+
+sudo apt install -y git build-essential clangd
 
 # Install Packer plugin manager
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
@@ -147,7 +158,9 @@ if [ $? -eq 0 ]; then
   echo "Compilation successful. Running $filename..."
   echo "------------------------------"
   ./"$filename"
+  echo
   echo "------------------------------"
+  rm "$filename"
 else
   echo "Compilation failed."
 fi
