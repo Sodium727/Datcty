@@ -130,6 +130,10 @@ vim.opt.shiftwidth = 2
 vim.opt.smartcase = true
 vim.opt.smartindent = true
 vim.opt.mouse = 'a'
+vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.breakat = '!.,:?;'
+vim.opt.formatoptions:append('t')
 
 vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 EOL
