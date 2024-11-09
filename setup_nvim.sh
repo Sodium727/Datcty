@@ -48,12 +48,17 @@ require('packer').startup(function(use)
   use 'numToStr/Comment.nvim'
   use 'navarasu/onedark.nvim'
   use 'ray-x/lsp_signature.nvim'
+
+  use {
+   'nvim-telescope/telescope.nvim',
+   requires = { {'nvim-lua/plenary.nvim'} }
+} 
 end)
 
--- Treesitter configuration - You might want to comment this part after the languages are compiled.
+-- Treesitter configuration
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {"c", "cpp"},
-  highlight = { enable = true },
+  highlight = { enable = true, disable = {}, },
 }
 
 -- LSP setup
@@ -122,6 +127,7 @@ require'lsp_signature'.setup({
   hi_parameter = "Search",
 })
 
+vim.opt.wrap = true
 vim.opt.number = true
 vim.opt.smarttab = true
 vim.opt.expandtab = true
@@ -130,10 +136,8 @@ vim.opt.shiftwidth = 2
 vim.opt.smartcase = true
 vim.opt.smartindent = true
 vim.opt.mouse = 'a'
-vim.opt.wrap = true
 vim.opt.linebreak = true
-vim.opt.breakat = '!.,:?;'
-vim.opt.formatoptions:append('t')
+vim.opt.formatoptions:append("t")
 
 vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 EOL
