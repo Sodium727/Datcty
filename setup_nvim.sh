@@ -38,7 +38,6 @@ require('packer').startup(function(use)
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
-      'hrsh7th/cmp-cmdline',
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip'
     }
@@ -63,7 +62,6 @@ require'nvim-treesitter.configs'.setup {
 
 -- LSP setup
 local lspconfig = require('lspconfig')
-
 lspconfig.clangd.setup{}
 
 -- LSP Key Mappings
@@ -98,11 +96,30 @@ cmp.setup({
     end,
   },
   mapping = {
-    ['<Tab>'] = cmp.mapping.select_next_item(),
-    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    -- Override these mappings to ensure they don't interfere with snippet navigation
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if require'luasnip'.expand_or_jumpable() then
+        require'luasnip'.expand_or_jump()  -- Jump to the next placeholder
+      elseif cmp.visible() then
+        cmp.select_next_item()  -- Select next item in the completion list
+      else
+        fallback()  -- Default action (insert a tab)
+      end
+    end, { 'i', 's' }),
+
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if require'luasnip'.jumpable(-1) then
+        require'luasnip'.jump(-1)  -- Jump to the previous placeholder
+      elseif cmp.visible() then
+        cmp.select_prev_item()  -- Select previous item in the completion list
+      else
+        fallback()  -- Default action (insert a tab)
+      end
+    end, { 'i', 's' }),
+
+    ['<C-Space>'] = cmp.mapping.complete(),  -- Ctrl+Space for completions
+    ['<C-e>'] = cmp.mapping.close(),         -- Ctrl+e to close completions
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),  -- Enter to confirm selection
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -126,6 +143,18 @@ require'lsp_signature'.setup({
   hint_enable = true,
   hi_parameter = "Search",
 })
+
+-- Keybinding for signature help (argument hints)
+vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua require"lsp_signature".signature_help()<CR>', { noremap = true, silent = true })
+
+-- Snippet navigation with LuaSnip
+local luasnip = require("luasnip")
+
+-- Move to next placeholder in a snippet
+vim.api.nvim_set_keymap('i', '<C-Tab>', [[<Cmd>lua require'luasnip'.jump(1)<CR>]], { noremap = true, silent = true })
+
+-- Move to previous placeholder in a snippet
+vim.api.nvim_set_keymap('i', '<C-S-Tab>', [[<Cmd>lua require'luasnip'.jump(-1)<CR>]], { noremap = true, silent = true })
 
 vim.opt.wrap = true
 vim.opt.number = true
