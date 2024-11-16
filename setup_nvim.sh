@@ -193,7 +193,7 @@ g++ -std=c++17 -O2 -Wall -o "$filename" "$1"
 if [ $? -eq 0 ]; then
   echo "Compilation successful. Running $filename..."
   echo "------------------------------"
-  ./"$filename"
+  time ./"$filename"
   echo
   echo "------------------------------"
   rm "$filename"
