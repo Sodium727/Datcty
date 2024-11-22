@@ -46,6 +46,7 @@ require('packer').startup(function(use)
   use 'windwp/nvim-autopairs'
   use 'numToStr/Comment.nvim'
   use 'navarasu/onedark.nvim'
+  use 'overcache/NeoSolarized'
   use 'ray-x/lsp_signature.nvim'
 
   use {
@@ -56,7 +57,7 @@ end)
 
 -- Treesitter configuration
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"c", "cpp"},
+  ensure_installed = {"c", "cpp", "html", "lua", "css", "javascript", "rust", "python"},
   highlight = { enable = true, disable = {}, },
 }
 
