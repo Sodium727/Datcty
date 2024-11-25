@@ -78,6 +78,60 @@ typedef unordered_map<char, long long> mcll;
 //   return divisorSum;
 // }
 
+// Sieve Primes
+// vector<bool> 
+// sievePrimes(const ll& _MAX)
+// {
+//   vector<bool> res(_MAX + 1, true);
+//   res[0] = res[1] = false;
+//   for (ll i = 2; i * i <= _MAX; ++i)
+//     if (res[i])
+//       for (ll j = i * i; j <= _MAX; j += i)
+//         res[j] = false;
+//   return res;
+// }
+
+// Check Primes
+// inline bool 
+// isPrime(const ll& num)
+// {
+//   if (num <= 1) return false;
+//   if (num <= 3) return  true;
+//   if (num % 2 == 0 || num  % 3 == 0) return  false;
+//   for (ll i = 5; i * i <= num; i += 6)
+//     if (num % i == 0 || num % (i + 2) == 0) 
+//       return false;
+//
+//   return true;
+// }
+
+// Find Digit Sum
+// inline ll
+// calculateDigitSum(ll num)
+// {
+//   ll res = 0;
+//   while (num)
+//   {
+//     res += num % 10;
+//     num /= 10;
+//   }
+//   return res;
+// }
+
+// Reverse num
+// inline ll
+// reverseNum(ll num)
+// {
+//   ll res = 0;
+//   while (num)
+//   {
+//     res = res * 10 + (num % 10);
+//     num /= 10;
+//   }
+//   return res;
+// }
+
+
 
 // File input?
 const string file = "";
