@@ -10,35 +10,27 @@
 using namespace std;
 
 typedef long long ll;
-typedef vector < ll > vll;
-typedef pair < ll, ll > pll;
+typedef vector<long long> vll;
+typedef pair<long long, long long> pll;
+typedef unordered_map<long long, long long> mll;
+typedef unordered_map<char, long long> mcll;
 
-// If you need to prints shits quickly.
-#define DEBUG 0
-#if DEBUG
-#define debug(x) cerr << #x << " = " << x << endl;
-#define debug(x) {
-  \
-  cerr << #x << " = ";\
-  debug_print(x);\
-}
-template < typename T >
-  void debug_print(const T & t) {
-    cerr << t << endl;
-  }
-template < typename T, typename U >
-  void debug_print(const pair < T, U > & p) {
-    cerr << "(" << p.first << ", " << p.second << ")" << endl;
-  }
-template < typename T >
-  void debug_print(const vector < T > & v) {
-    for (const auto & e: v) cerr << e << " ";
-    cerr << endl;
-  }
-
-#else
-#define debug(x)
-#endif
+#define pb push_back         // push_back shorthand
+#define mp make_pair         // make_pair shorthand
+#define fi first             // shorthand for pair.first
+#define se second            // shorthand for pair.second
+#define all(x) (x).begin(),(x).end() // all elements of a container
+#define rall(x) (x).rbegin(),(x).rend() // reverse iteration
+#define FOR(i, a, b) for(int i = a; i < b; i++)  // for loop from a to b
+#define ROF(i, a, b) for(int i = a; i >= b; i--) // reverse for loop
+#define testCases int t; cin >> t; while (t--)  
+#define MOD 1000000007    
+#define endl "\n"           // new line shorthand
+#define sz(x) (long long)(x).size()  // size of a container
+#define yes cout << "YES" << '\n' // output YES
+#define no cout << "NO" << '\n' // output NO
+#define out(val) cout << (val) << '\n'
+#define in(val) cin >> val
 
 // Literally cheating shits:
 
@@ -75,6 +67,19 @@ template < typename T >
 //   return prefix;
 // }
 
+// Proper Divisors Sum
+// inline vector<ll> 
+// calculateDivisorSum(const ll& _MAX)
+// {
+//   vector<ll> divisorSum(_MAX + 1, 0);
+//     for (ll i = 1; i < _MAX + 1; ++i)
+//       for (ll j = 2 * i; j < _MAX + 1; j += i)
+//         divisorSum[j] += i;
+//
+//   return divisorSum;
+// }
+
+
 // File input?
 const string file = "";
 bool useFiles = false;
@@ -92,14 +97,6 @@ int main() {
     freopen((file + ".OUT").c_str(), "w", stdout);
   }
 
-  // ll size;
-  // cin >> size;
-
-  // vll container(size);
-
-  // for (ll i = 0; i < size; ++i) {
-  //   cin >> container[i];
-  // }
 
   return 0;
 }
