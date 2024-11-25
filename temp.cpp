@@ -21,16 +21,16 @@ typedef unordered_map<char, long long> mcll;
 #define se second            // shorthand for pair.second
 #define all(x) (x).begin(),(x).end() // all elements of a container
 #define rall(x) (x).rbegin(),(x).rend() // reverse iteration
-#define FOR(i, a, b) for(int i = a; i < b; i++)  // for loop from a to b
-#define ROF(i, a, b) for(int i = a; i >= b; i--) // reverse for loop
-#define testCases int t; cin >> t; while (t--)  
+#define FOR(i, a, b) for(long long i = a; i < b; i++)  // for loop from a to b
+#define ROF(i, a, b) for(long long i = a; i >= b; i--) // reverse for loop
+#define testCases long long t; cin >> t; while (t--)  
 #define MOD 1000000007    
 #define endl "\n"           // new line shorthand
 #define sz(x) (long long)(x).size()  // size of a container
 #define yes cout << "YES" << '\n' // output YES
 #define no cout << "NO" << '\n' // output NO
 #define out(val) cout << (val) << '\n'
-#define in(val) cin >> val
+#define in(val) cin >> (val)
 
 // Literally cheating shits:
 
