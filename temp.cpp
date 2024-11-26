@@ -1,3 +1,4 @@
+#include <queue>
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 #include <bits/stdc++.h>
@@ -10,24 +11,25 @@ using namespace std;
 
 typedef long long ll;
 typedef vector<long long> vll;
+typedef queue<ll> qll;
 typedef pair<long long, long long> pll;
 typedef unordered_map<long long, long long> mll;
 typedef unordered_map<char, long long> mcll;
 
-#define pb push_back         // push_back shorthand
-#define mp make_pair         // make_pair shorthand
-#define fi first             // shorthand for pair.first
-#define se second            // shorthand for pair.second
-#define all(x) (x).begin(),(x).end() // all elements of a container
-#define rall(x) (x).rbegin(),(x).rend() // reverse iteration
-#define FOR(i, a, b) for(long long i = a; i < b; i++)  // for loop from a to b
-#define ROF(i, a, b) for(long long i = a; i >= b; i--) // reverse for loop
+#define pb push_back         
+#define mp make_pair        
+#define fi first           
+#define se second         
+#define all(x) (x).begin(),(x).end()
+#define rall(x) (x).rbegin(),(x).rend()
+#define FOR(i, a, b) for(long long i = a; i < b; i++)
+#define ROF(i, a, b) for(long long i = a; i >= b; i--)
 #define testCases long long t; cin >> t; while (t--)  
 #define MOD 1000000007    
-#define endl "\n"           // new line shorthand
-#define sz(x) (long long)(x).size()  // size of a container
-#define yes cout << "YES" << '\n' // output YES
-#define no cout << "NO" << '\n' // output NO
+#define endl "\n"         
+#define sz(x) (long long)(x).size() 
+#define yes cout << "YES" << '\n' 
+#define no cout << "NO" << '\n' 
 #define out(val) cout << (val) << '\n'
 #define in(val) cin >> (val)
 
@@ -46,7 +48,7 @@ typedef unordered_map<char, long long> mcll;
 // }
 
 // Binary Search
-// bool binary_search(const vector < ll > & arr, ll target) {
+// bool binary_search(const vector<ll> & arr, ll target) {
 //   ll left = 0, right = arr.size() - 1;
 //   while (left <= right) {
 //     ll mid = left + (right - left) / 2;
@@ -58,8 +60,8 @@ typedef unordered_map<char, long long> mcll;
 // }
 
 // Prefix Sum
-// vector < ll > prefix_sum(const vector < ll > & arr) {
-//   vector < ll > prefix(arr.size() + 1, 0);
+// vector<ll> prefix_sum(const vector<ll> & arr) {
+//   vector<ll> prefix(arr.size() + 1, 0);
 //   for (size_t i = 1; i <= arr.size(); ++i) {
 //     prefix[i] = prefix[i - 1] + arr[i - 1];
 //   }
@@ -76,6 +78,18 @@ typedef unordered_map<char, long long> mcll;
 //         divisorSum[j] += i;
 //
 //   return divisorSum;
+// }
+
+// Count divisors
+// inline vector<ll>
+// countDivisor(const ll& limit)
+// {
+//   vector<ll> res(limit + 1, 0);
+//   for (ll i = 1; i < limit + 1; ++i)
+//     for (ll j = 2 * i; j < limit + 1; j += i)
+//       ++res[j];
+//
+//   return res;
 // }
 
 // Sieve Primes
@@ -131,14 +145,12 @@ typedef unordered_map<char, long long> mcll;
 //   return res;
 // }
 
-
-
-// File input?
+// File input
 const string file = "";
-bool useFiles = false;
+bool useFiles = 0;
 
-// Limit?
-const ll MAX = LLONG_MAX;
+// Limit
+const ll MAX = static_cast<ll>(10e18);
 
 int main() {
   ios::sync_with_stdio(0);
