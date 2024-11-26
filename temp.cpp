@@ -158,8 +158,8 @@ int main() {
   cout.tie(0);
 
   if (useFiles) {
-    freopen((file + ".INP").c_str(), "r", stdin);
-    freopen((file + ".OUT").c_str(), "w", stdout);
+    if (!freopen((file + ".INP").c_str(), "r", stdin)) return -1;
+    if (!freopen((file + ".OUT").c_str(), "w", stdout)) return -1;
   }
 
 
