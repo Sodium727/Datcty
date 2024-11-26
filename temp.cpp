@@ -1,11 +1,18 @@
-#include <queue>
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-#include <bits/stdc++.h>
-
-#define MAX_RECURSION_DEPTH 100000
-#pragma GCC diagnostic ignored "-Wunused-function"
-#include <ext/stdio_filebuf.h>
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <queue>
+#include <vector>
+#include <stack>
+#include <set>
+#include <unordered_set>
+#include <map>
+#include <unordered_map>
+#include <algorithm>
+#include <numeric>
+#include <array>
 
 using namespace std;
 
@@ -48,7 +55,7 @@ typedef unordered_map<char, long long> mcll;
 // }
 
 // Binary Search
-// bool binary_search(const vector<ll> & arr, ll target) {
+// bool binary_search(const vector < ll > & arr, ll target) {
 //   ll left = 0, right = arr.size() - 1;
 //   while (left <= right) {
 //     ll mid = left + (right - left) / 2;
@@ -60,8 +67,8 @@ typedef unordered_map<char, long long> mcll;
 // }
 
 // Prefix Sum
-// vector<ll> prefix_sum(const vector<ll> & arr) {
-//   vector<ll> prefix(arr.size() + 1, 0);
+// vector < ll > prefix_sum(const vector < ll > & arr) {
+//   vector < ll > prefix(arr.size() + 1, 0);
 //   for (size_t i = 1; i <= arr.size(); ++i) {
 //     prefix[i] = prefix[i - 1] + arr[i - 1];
 //   }
@@ -145,12 +152,19 @@ typedef unordered_map<char, long long> mcll;
 //   return res;
 // }
 
+// Perfect Square
+// inline bool
+// isPerfectSquare(const ll& num)
+// {
+//   return static_cast<ll>(sqrt(num)) * static_cast<ll>(sqrt(num)) == num;
+// }
+
 // File input
-const string file = "";
-bool useFiles = 0;
+const string file = "PALIN";
+bool useFiles = 1;
 
 // Limit
-const ll MAX = static_cast<ll>(10e18);
+// const ll MAX = static_cast<ll>(10e18);
 
 int main() {
   ios::sync_with_stdio(0);
@@ -158,10 +172,21 @@ int main() {
   cout.tie(0);
 
   if (useFiles) {
-    if (!freopen((file + ".INP").c_str(), "r", stdin)) return -1;
-    if (!freopen((file + ".OUT").c_str(), "w", stdout)) return -1;
+    if (!freopen((file + ".INP").c_str(), "r", stdin)) return 1;
+    if (!freopen((file + ".OUT").c_str(), "w", stdout)) return 1;
   }
 
+  testCases
+  {
+    string str;
+    cin >> str;
+
+    ll count = 0;
+    size_t it1 = 0, it2 = str.size() - 1;
+    while (it1 < it2)
+      count += abs(str[it1++] - str[it2--]);
+    out(count);
+  }
 
   return 0;
 }
