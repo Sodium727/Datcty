@@ -148,10 +148,10 @@ typedef set<long long> sll;
 
 // File input
 const string file = "";
-bool useFiles = 0;
+constexpr bool useFiles = 0;
 
 // Limit
-// const ll MAX = static_cast<ll>(10e18);
+// constexpr ll MAX = static_cast<ll>(10e18);
 
 int main() {
   ios::sync_with_stdio(0);
