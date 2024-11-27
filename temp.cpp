@@ -40,7 +40,8 @@ typedef unordered_map<char, long long> mcll;
 
 // Literally cheating shits:
 
-// ll mod_exp(ll base, ll exp, ll mod) {
+// inline ll 
+// modPower(ll base, ll exp, ll mod) {
 //   ll result = 1;
 //   while (exp > 0) {
 //     if (exp % 2 == 1) {
@@ -53,19 +54,21 @@ typedef unordered_map<char, long long> mcll;
 // }
 
 // Binary Search
-// bool binary_search(const vector<ll> & arr, ll target) {
+// inline ll 
+// binarySearch(const vector<ll> & arr, ll target) {
 //   ll left = 0, right = arr.size() - 1;
 //   while (left <= right) {
 //     ll mid = left + (right - left) / 2;
-//     if (arr[mid] == target) return true;
+//     if (arr[mid] == target) return mid;
 //     else if (arr[mid] < target) left = mid + 1;
 //     else right = mid - 1;
 //   }
-//   return false;
+//   return -1;
 // }
 
 // Prefix Sum
-// vector<ll> prefix_sum(const vector<ll> & arr) {
+// inline vector<ll> 
+// prefix_sum(const vector<ll>& arr) {
 //   vector<ll> prefix(arr.size() + 1, 0);
 //   for (size_t i = 1; i <= arr.size(); ++i) {
 //     prefix[i] = prefix[i - 1] + arr[i - 1];
@@ -75,11 +78,11 @@ typedef unordered_map<char, long long> mcll;
 
 // Proper Divisors Sum
 // inline vector<ll> 
-// calculateDivisorSum(const ll& _MAX)
+// calculateDivisorSum(const ll& limit)
 // {
-//   vector<ll> divisorSum(_MAX + 1, 0);
-//     for (ll i = 1; i < _MAX + 1; ++i)
-//       for (ll j = 2 * i; j < _MAX + 1; j += i)
+//   vector<ll> divisorSum(limit + 1, 0);
+//     for (ll i = 1; i < limit + 1; ++i)
+//       for (ll j = 2 * i; j < limit + 1; j += i)
 //         divisorSum[j] += i;
 //
 //   return divisorSum;
@@ -99,13 +102,13 @@ typedef unordered_map<char, long long> mcll;
 
 // Sieve Primes
 // vector<bool> 
-// sievePrimes(const ll& _MAX)
+// sievePrimes(const ll& limit)
 // {
-//   vector<bool> res(_MAX + 1, true);
+//   vector<bool> res(limit + 1, true);
 //   res[0] = res[1] = false;
-//   for (ll i = 2; i * i <= _MAX; ++i)
+//   for (ll i = 2; i * i <= limit; ++i)
 //     if (res[i])
-//       for (ll j = i * i; j <= _MAX; j += i)
+//       for (ll j = i * i; j <= limit; j += i)
 //         res[j] = false;
 //   return res;
 // }
@@ -115,8 +118,8 @@ typedef unordered_map<char, long long> mcll;
 // isPrime(const ll& num)
 // {
 //   if (num <= 1) return false;
-//   if (num <= 3) return  true;
-//   if (num % 2 == 0 || num  % 3 == 0) return  false;
+//   if (num <= 3) return true;
+//   if (num % 2 == 0 || num  % 3 == 0) return false;
 //   for (ll i = 5; i * i <= num; i += 6)
 //     if (num % i == 0 || num % (i + 2) == 0) 
 //       return false;
