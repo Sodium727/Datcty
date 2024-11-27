@@ -7,7 +7,7 @@ using namespace std;
 typedef long long ll;
 typedef vector<long long> vll;
 typedef queue<ll> qll;
-typedef pair<long long, long long> pll;
+typedef set<long long> sll;
 
 #define pb push_back         
 #define mp make_pair        
