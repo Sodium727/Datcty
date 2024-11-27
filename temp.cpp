@@ -176,17 +176,6 @@ int main() {
     if (!freopen((file + ".OUT").c_str(), "w", stdout)) return 1;
   }
 
-  testCases
-  {
-    string str;
-    cin >> str;
-
-    ll count = 0;
-    size_t it1 = 0, it2 = str.size() - 1;
-    while (it1 < it2)
-      count += abs(str[it1++] - str[it2--]);
-    out(count);
-  }
 
   return 0;
 }
