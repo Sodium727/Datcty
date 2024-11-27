@@ -53,7 +53,7 @@ typedef unordered_map<char, long long> mcll;
 // }
 
 // Binary Search
-// bool binary_search(const vector < ll > & arr, ll target) {
+// bool binary_search(const vector<ll> & arr, ll target) {
 //   ll left = 0, right = arr.size() - 1;
 //   while (left <= right) {
 //     ll mid = left + (right - left) / 2;
@@ -65,8 +65,8 @@ typedef unordered_map<char, long long> mcll;
 // }
 
 // Prefix Sum
-// vector < ll > prefix_sum(const vector < ll > & arr) {
-//   vector < ll > prefix(arr.size() + 1, 0);
+// vector<ll> prefix_sum(const vector<ll> & arr) {
+//   vector<ll> prefix(arr.size() + 1, 0);
 //   for (size_t i = 1; i <= arr.size(); ++i) {
 //     prefix[i] = prefix[i - 1] + arr[i - 1];
 //   }
