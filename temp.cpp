@@ -68,7 +68,7 @@ typedef unordered_map<char, long long> mcll;
 
 // Prefix Sum
 // inline vector<ll> 
-// prefix_sum(const vector<ll>& arr) {
+// calculatePrefixSum(const vector<ll>& arr) {
 //   vector<ll> prefix(arr.size() + 1, 0);
 //   for (size_t i = 1; i <= arr.size(); ++i) {
 //     prefix[i] = prefix[i - 1] + arr[i - 1];
