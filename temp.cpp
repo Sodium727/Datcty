@@ -29,8 +29,6 @@ typedef unordered_map<char, long long> mcll;
 #define se second         
 #define all(x) (x).begin(),(x).end()
 #define rall(x) (x).rbegin(),(x).rend()
-#define FOR(i, a, b) for(long long i = a; i < b; i++)
-#define ROF(i, a, b) for(long long i = a; i >= b; i--)
 #define testCases long long t; cin >> t; while (t--)  
 #define MOD 1000000007    
 #define endl "\n"         
