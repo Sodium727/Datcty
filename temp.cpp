@@ -8,8 +8,6 @@ typedef long long ll;
 typedef vector<long long> vll;
 typedef queue<ll> qll;
 typedef pair<long long, long long> pll;
-typedef unordered_map<long long, long long> mll;
-typedef unordered_map<char, long long> mcll;
 
 #define pb push_back         
 #define mp make_pair        
