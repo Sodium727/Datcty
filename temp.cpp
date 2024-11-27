@@ -160,8 +160,8 @@ typedef unordered_map<char, long long> mcll;
 // }
 
 // File input
-const string file = "PALIN";
-bool useFiles = 1;
+const string file = "";
+bool useFiles = 0;
 
 // Limit
 // const ll MAX = static_cast<ll>(10e18);
