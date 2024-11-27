@@ -1,18 +1,6 @@
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-#include <iostream>
-#include <fstream>
-#include <cmath>
-#include <queue>
-#include <vector>
-#include <stack>
-#include <set>
-#include <unordered_set>
-#include <map>
-#include <unordered_map>
-#include <algorithm>
-#include <numeric>
-#include <array>
+#include <bits/stdc++.h>
 
 using namespace std;
 
