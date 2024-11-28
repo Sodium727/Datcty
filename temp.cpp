@@ -4,22 +4,19 @@
 using namespace std;
 
 typedef long long ll;
-typedef vector<ll> vll;
-typedef queue<ll> qll;
-typedef set<ll> sll;
 
-#define pb push_back     
-#define mp make_pair    
-#define fi first       
-#define se second     
+#define pb push_back
+#define mp make_pair
+#define fi first
+#define se second
 #define all(x) (x).begin(),(x).end()
 #define rall(x) (x).rbegin(),(x).rend()
-#define sz(x) (ll)(x).size() 
+#define sz(x) (ll)(x).size()
 
-#define testCases long long t; scanf("%lld", &(t)); while (t--)  
-#define fTestCases long long t; fscanf(fin, "%lld", &(t)); while (t--)  
+#define testCases long long t; scanf("%lld", &(t)); while (t--)
+#define fTestCases long long t; fscanf(fin, "%lld", &(t)); while (t--)
 
-#define yes printf("YES\n"
+#define yes printf("YES\n")
 #define no printf("NO\n")
 #define in(val) scanf("%lld", &(val))
 #define out(val) printf("%lld\n", (val))
@@ -154,6 +151,7 @@ typedef set<ll> sll;
 // File input/output
 const char* file = "";  // Specify your filename without the extension
 constexpr bool useFiles = 0;
+constexpr ll MAX = -1;
 
 int main() {
   FILE *fin = stdin;
