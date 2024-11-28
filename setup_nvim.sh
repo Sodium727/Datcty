@@ -176,12 +176,12 @@ EOL
 # Install Neovim plugins using Packer
 nvim +PackerInstall
 
-cat << 'EOF' > cpp.sh
+cat << 'EOF' > c.sh
 #!/bin/bash
 
 # Check if the file name is provided
 if [ -z "$1" ]; then
-  echo "Usage: ./run_cpp.sh <filename.cpp>"
+  echo "Usage: ./c.sh <filename.cpp>"
   exit 1
 fi
 
@@ -196,7 +196,7 @@ g++ -std=c++17 -O2 -Wall -o "$filename" "$1"
 if [ $? -eq 0 ]; then
   echo "Compilation successful. Running $filename..."
   echo "------------------------------"
-  time -p ./"$filename"
+  time ./"$filename"
   echo
   echo "------------------------------"
   rm "$filename"
@@ -209,10 +209,10 @@ EOF
 mkdir -p ~/scripts
 
 # Move cpp.sh into ~/scripts
-mv cpp.sh ~/scripts/cpp.sh
+mv cpp.sh ~/scripts/c.sh
 
 # Make cpp.sh executable
-chmod +x ~/scripts/cpp.sh
+chmod +x ~/scripts/c.sh
 
 # Add ~/scripts to the PATH if it's not already in there
 if ! echo "$PATH" | grep -q "$HOME/scripts"; then
