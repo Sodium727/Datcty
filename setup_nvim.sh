@@ -190,7 +190,7 @@ filename="${1%.*}"
 
 # Compile the C++ file with g++
 echo "Compiling $1..."
-g++ -std=c++17 -O2 -Wall -o "$filename" "$1"
+g++ -std=c++14 -O3 -w -o "$filename" "$1"
 
 # Check if compilation was successful
 if [ $? -eq 0 ]; then
