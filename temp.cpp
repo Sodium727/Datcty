@@ -1,28 +1,33 @@
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 #include <bits/stdc++.h>
-
 using namespace std;
 
 typedef long long ll;
-typedef vector<long long> vll;
+typedef vector<ll> vll;
 typedef queue<ll> qll;
-typedef set<long long> sll;
+typedef set<ll> sll;
 
-#define pb push_back         
-#define mp make_pair        
-#define fi first           
-#define se second         
+#define pb push_back     
+#define mp make_pair    
+#define fi first       
+#define se second     
 #define all(x) (x).begin(),(x).end()
 #define rall(x) (x).rbegin(),(x).rend()
-#define testCases long long t; cin >> t; while (t--)  
-#define MOD 1000000007    
-#define endl "\n"         
-#define sz(x) (long long)(x).size() 
-#define yes cout << "YES" << '\n' 
-#define no cout << "NO" << '\n' 
-#define out(val) cout << (val) << '\n'
-#define in(val) cin >> (val)
+#define sz(x) (ll)(x).size() 
+
+#define testCases long long t; scanf("%lld", &(t)); while (t--)  
+#define fTestCases long long t; fscanf(fin, "%lld", &(t)); while (t--)  
+
+#define yes printf("YES\n"
+#define no printf("NO\n")
+#define in(val) scanf("%lld", &(val))
+#define out(val) printf("%lld\n", (val))
+
+#define fYes fprintf(fout, "YES\n")
+#define fNo fprintf(fout, "NO\n")
+#define fIn(val) fscanf(fin, "%lld", &(val))
+#define fOut(val) fprintf(fout, "%lld\n", (val))
 
 // Literally cheating shits:
 
@@ -30,11 +35,11 @@ typedef set<long long> sll;
 // modPower(ll base, ll exp, ll mod) {
 //   ll result = 1;
 //   while (exp > 0) {
-//     if (exp % 2 == 1) {
-//       result = (result * base) % mod;
-//     }
-//     base = (base * base) % mod;
-//     exp /= 2;
+//   if (exp % 2 == 1) {
+//     result = (result * base) % mod;
+//   }
+//   base = (base * base) % mod;
+//   exp /= 2;
 //   }
 //   return result;
 // }
@@ -44,10 +49,10 @@ typedef set<long long> sll;
 // binarySearch(const vector<ll> & arr, ll target) {
 //   ll left = 0, right = arr.size() - 1;
 //   while (left <= right) {
-//     ll mid = left + (right - left) / 2;
-//     if (arr[mid] == target) return mid;
-//     else if (arr[mid] < target) left = mid + 1;
-//     else right = mid - 1;
+//   ll mid = left + (right - left) / 2;
+//   if (arr[mid] == target) return mid;
+//   else if (arr[mid] < target) left = mid + 1;
+//   else right = mid - 1;
 //   }
 //   return -1;
 // }
@@ -57,7 +62,7 @@ typedef set<long long> sll;
 // calculatePrefixSum(const vector<ll>& arr) {
 //   vector<ll> prefix(arr.size() + 1, 0);
 //   for (size_t i = 1; i <= arr.size(); ++i) {
-//     prefix[i] = prefix[i - 1] + arr[i - 1];
+//   prefix[i] = prefix[i - 1] + arr[i - 1];
 //   }
 //   return prefix;
 // }
@@ -67,9 +72,9 @@ typedef set<long long> sll;
 // calculateDivisorSum(const ll& limit)
 // {
 //   vector<ll> divisorSum(limit + 1, 0);
-//     for (ll i = 1; i < limit + 1; ++i)
-//       for (ll j = 2 * i; j < limit + 1; j += i)
-//         divisorSum[j] += i;
+//   for (ll i = 1; i < limit + 1; ++i)
+//     for (ll j = 2 * i; j < limit + 1; j += i)
+//     divisorSum[j] += i;
 //
 //   return divisorSum;
 // }
@@ -80,8 +85,8 @@ typedef set<long long> sll;
 // {
 //   vector<ll> res(limit + 1, 0);
 //   for (ll i = 1; i < limit + 1; ++i)
-//     for (ll j = 2 * i; j < limit + 1; j += i)
-//       ++res[j];
+//   for (ll j = 2 * i; j < limit + 1; j += i)
+//     ++res[j];
 //
 //   return res;
 // }
@@ -93,9 +98,9 @@ typedef set<long long> sll;
 //   vector<bool> res(limit + 1, true);
 //   res[0] = res[1] = false;
 //   for (ll i = 2; i * i <= limit; ++i)
-//     if (res[i])
-//       for (ll j = i * i; j <= limit; j += i)
-//         res[j] = false;
+//   if (res[i])
+//     for (ll j = i * i; j <= limit; j += i)
+//     res[j] = false;
 //   return res;
 // }
 
@@ -107,8 +112,8 @@ typedef set<long long> sll;
 //   if (num <= 3) return true;
 //   if (num % 2 == 0 || num  % 3 == 0) return false;
 //   for (ll i = 5; i * i <= num; i += 6)
-//     if (num % i == 0 || num % (i + 2) == 0) 
-//       return false;
+//   if (num % i == 0 || num % (i + 2) == 0) 
+//     return false;
 //
 //   return true;
 // }
@@ -120,8 +125,8 @@ typedef set<long long> sll;
 //   ll res = 0;
 //   while (num)
 //   {
-//     res += num % 10;
-//     num /= 10;
+//   res += num % 10;
+//   num /= 10;
 //   }
 //   return res;
 // }
@@ -133,8 +138,8 @@ typedef set<long long> sll;
 //   ll res = 0;
 //   while (num)
 //   {
-//     res = res * 10 + (num % 10);
-//     num /= 10;
+//   res = res * 10 + (num % 10);
+//   num /= 10;
 //   }
 //   return res;
 // }
@@ -146,23 +151,25 @@ typedef set<long long> sll;
 //   return static_cast<ll>(sqrt(num)) * static_cast<ll>(sqrt(num)) == num;
 // }
 
-// File input
-const string file = "";
+// File input/output
+const char* file = "";  // Specify your filename without the extension
 constexpr bool useFiles = 0;
 
-// Limit
-// constexpr ll MAX = static_cast<ll>(10e18);
-
 int main() {
-  ios::sync_with_stdio(0);
-  cin.tie(0);
-  cout.tie(0);
-
+  FILE *fin = stdin;
+  FILE *fout = stdout;
+  
   if (useFiles) {
-    if (!freopen((file + ".INP").c_str(), "r", stdin)) return 1;
-    if (!freopen((file + ".OUT").c_str(), "w", stdout)) return 1;
+    fin = fopen((string(file) + ".INP").c_str(), "r");
+    fout = fopen((string(file) + ".OUT").c_str(), "w");
   }
 
+  // Code
+
+  if (useFiles) {
+    fclose(fin);
+    fclose(fout);
+  }
 
   return 0;
 }
