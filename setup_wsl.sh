@@ -1,9 +1,21 @@
 #!/bin/bash
+# Bash to automate neovim setup (for C/C++)
+
+
 
 # Update and install Neovim, Git, build-essential, and clangd
-sudo apt update
+sudo apt update 
 sudo apt upgrade -y
-sudo apt install -y neovim git build-essential clangd dos2unix
+
+# Make sure to manually install the latest neovim version first (through .deb package)
+# https://github.com/neovim/neovim-releases/releases
+# sudo apt install ./nvim-linux64.deb
+
+# If doesn't work, remove the old neovim:
+# sudo apt remove neovim -y
+# sudo apt remove neovim-runtime -y
+
+sudo apt install -y git build-essential clangd
 
 # Install Packer plugin manager
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
@@ -26,7 +38,6 @@ require('packer').startup(function(use)
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
-      'hrsh7th/cmp-cmdline',
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip'
     }
@@ -35,18 +46,23 @@ require('packer').startup(function(use)
   use 'windwp/nvim-autopairs'
   use 'numToStr/Comment.nvim'
   use 'navarasu/onedark.nvim'
+  use 'overcache/NeoSolarized'
   use 'ray-x/lsp_signature.nvim'
+
+  use {
+   'nvim-telescope/telescope.nvim',
+   requires = { {'nvim-lua/plenary.nvim'} }
+} 
 end)
 
 -- Treesitter configuration
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"c", "cpp"},
-  highlight = { enable = true },
+  ensure_installed = {"c", "cpp", "html", "lua", "css", "javascript", "rust", "python"},
+  highlight = { enable = true, disable = {}, },
 }
 
 -- LSP setup
 local lspconfig = require('lspconfig')
-
 lspconfig.clangd.setup{}
 
 -- LSP Key Mappings
@@ -57,7 +73,6 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gl', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-a>', 'ggVG', opts)
@@ -81,11 +96,30 @@ cmp.setup({
     end,
   },
   mapping = {
-    ['<Tab>'] = cmp.mapping.select_next_item(),
-    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    -- Override these mappings to ensure they don't interfere with snippet navigation
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if require'luasnip'.expand_or_jumpable() then
+        require'luasnip'.expand_or_jump()  -- Jump to the next placeholder
+      elseif cmp.visible() then
+        cmp.select_next_item()  -- Select next item in the completion list
+      else
+        fallback()  -- Default action (insert a tab)
+      end
+    end, { 'i', 's' }),
+
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if require'luasnip'.jumpable(-1) then
+        require'luasnip'.jump(-1)  -- Jump to the previous placeholder
+      elseif cmp.visible() then
+        cmp.select_prev_item()  -- Select previous item in the completion list
+      else
+        fallback()  -- Default action (insert a tab)
+      end
+    end, { 'i', 's' }),
+
+    ['<C-Space>'] = cmp.mapping.complete(),  -- Ctrl+Space for completions
+    ['<C-e>'] = cmp.mapping.close(),         -- Ctrl+e to close completions
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),  -- Enter to confirm selection
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -101,7 +135,9 @@ require('nvim-autopairs').setup{}
 require('Comment').setup()
 
 -- OneDark theme setup
-require('onedark').load()
+-- require('onedark').load()
+
+vim.cmd('colo NeoSolarized')
 
 require'lsp_signature'.setup({
   bind = true,
@@ -110,6 +146,19 @@ require'lsp_signature'.setup({
   hi_parameter = "Search",
 })
 
+-- Keybinding for signature help (argument hints)
+vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua require"lsp_signature".signature_help()<CR>', { noremap = true, silent = true })
+
+-- Snippet navigation with LuaSnip
+local luasnip = require("luasnip")
+
+-- Move to next placeholder in a snippet
+vim.api.nvim_set_keymap('i', '<C-Tab>', [[<Cmd>lua require'luasnip'.jump(1)<CR>]], { noremap = true, silent = true })
+
+-- Move to previous placeholder in a snippet
+vim.api.nvim_set_keymap('i', '<C-S-Tab>', [[<Cmd>lua require'luasnip'.jump(-1)<CR>]], { noremap = true, silent = true })
+
+vim.opt.wrap = true
 vim.opt.number = true
 vim.opt.smarttab = true
 vim.opt.expandtab = true
@@ -118,46 +167,58 @@ vim.opt.shiftwidth = 2
 vim.opt.smartcase = true
 vim.opt.smartindent = true
 vim.opt.mouse = 'a'
+vim.opt.linebreak = true
+vim.opt.formatoptions:append("t")
 
 vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 EOL
 
-# Ensure ~/scripts directory exists
-mkdir -p ~/scripts
+# Install Neovim plugins using Packer
+nvim +PackerInstall
 
-# Create cpp.sh script in ~/scripts
-cat<<EOL > ~/scripts/cpp.sh 
+cat << 'EOF' > c.sh
 #!/bin/bash
 
 # Check if the file name is provided
-if [ -z "\$1" ]; then
-  echo "Usage: ./run_cpp.sh <filename.cpp>"
+if [ -z "$1" ]; then
+  echo "Usage: ./c.sh <filename.cpp>"
   exit 1
 fi
 
 # Extract file name without extension
-filename="\${1%.*}"
+filename="${1%.*}"
 
 # Compile the C++ file with g++
-echo "Compiling \$1..."
-g++ -std=c++17 -O2 -Wall -o "\$filename" "\$1"
+echo "Compiling $1..."
+g++ -std=c++14 -O3 -w -o "$filename" "$1"
 
 # Check if compilation was successful
-if [ \$? -eq 0 ]; then
-  echo "Compilation successful. Running \$filename..."
+if [ $? -eq 0 ]; then
+  echo "Compilation successful. Running $filename..."
   echo "------------------------------"
-  "./\$filename"
+  time ./"$filename"
+  echo
   echo "------------------------------"
+  rm "$filename"
 else
   echo "Compilation failed."
 fi
-EOL
+EOF
 
-# Make cpp.sh executable and update PATH
-chmod +x ~/scripts/cpp.sh
-export PATH=$PATH:~/scripts
+# Create the ~/scripts directory if it doesn't exist
+mkdir -p ~/scripts
 
-# Install Neovim plugins using Packer
-nvim +PackerInstall
+# Move cpp.sh into ~/scripts
+mv cpp.sh ~/scripts/c.sh
+
+# Make cpp.sh executable
+chmod +x ~/scripts/c.sh
+
+# Add ~/scripts to the PATH if it's not already in there
+if ! echo "$PATH" | grep -q "$HOME/scripts"; then
+  echo 'export PATH="$PATH:$HOME/scripts"' >> ~/.bashrc
+  source ~/.bashrc
+fi
+
 
 echo "C/C++ setup complete!"
