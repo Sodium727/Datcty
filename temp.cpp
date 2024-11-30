@@ -6,6 +6,7 @@ using namespace std;
 // Constants
 const ll MAX = LLONG_MAX;
 const ll MOD = 1e9 + 7;
+#define file ""
 
 // Helper functions
 
@@ -248,6 +249,16 @@ main()
 {
   ios::sync_with_stdio(false);
   cin.tie(nullptr); cout.tie(nullptr);
+ 
+  if (fopen(file".inp", "r") ) {
+    freopen(file".inp", "r", stdin);
+    freopen(file".out", "w", stdout);
+  }
+ 
+  if (fopen("file.inp", "r")) {
+     freopen("file.inp", "r", stdin);
+     freopen("file.out", "w", stdout);
+  }
 
   ll t;
   cin >> t;
