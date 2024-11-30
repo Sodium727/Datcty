@@ -194,13 +194,13 @@ filename="${1%.*}"
 
 # Compile the C++ file with g++
 echo "Compiling $1..."
-g++ -std=c++14 -O3 -w -o "$filename" "$1"
+g++ -std=c++14 -w -o "$filename" "$1"
 
 # Check if compilation was successful
 if [ $? -eq 0 ]; then
   echo "Compilation successful. Running $filename..."
   echo "------------------------------"
-  time ./"$filename"
+  ./"$filename"
   echo
   echo "------------------------------"
   rm "$filename"
