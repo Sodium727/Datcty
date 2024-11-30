@@ -171,6 +171,10 @@ vim.opt.linebreak = true
 vim.opt.formatoptions:append("t")
 
 vim.cmd([[autocmd CursorMoved * normal! zvzz]])
+
+-- Map <Leader>t to open a terminal in a horizontal split
+vim.api.nvim_set_keymap('n', '<Leader>t', ':split | te<CR>', { noremap = true, silent = true })
+
 EOL
 
 # Install Neovim plugins using Packer
