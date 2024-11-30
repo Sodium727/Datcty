@@ -238,16 +238,12 @@ removeDuplicates(vector<ll>& arr)
   arr.erase(unique(arr.begin(), arr.end()), arr.end());
 }
 
-// Count how many times a target appears in a vector
-ll 
-countOccurrences(const vector<ll>& arr, ll target)
-{
-  return count(arr.begin(), arr.end(), target);
-}
-
 int 
 main()
 {
+  srand(time(0));
+  double startTime = clock();
+
   ios::sync_with_stdio(false);
   cin.tie(nullptr); cout.tie(nullptr);
  
@@ -264,6 +260,9 @@ main()
   {
     // Your logic here
   }
+  
+  double endTime = clock();
+  cout << '\n' << (endTime - startTime) / CLOCKS_PER_SEC;
 
   return 0;
 }
