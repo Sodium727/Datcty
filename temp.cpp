@@ -6,7 +6,6 @@ using namespace std;
 // Constants
 const ll MAX = LLONG_MAX;
 const ll MOD = 1e9 + 7;
-const bool useFile = 0;
 #define file ""
 
 // Helper functions
@@ -243,15 +242,9 @@ main()
 {
   srand(time(0));
   double startTime = clock();
-
-  ios::sync_with_stdio(false);
-  cin.tie(nullptr); cout.tie(nullptr);
  
-  if (useFile) 
-  {
-    freopen(file".INP", "r", stdin);
-    freopen(file".OUT", "w", stdout);
-  }
+  freopen(file".INP", "r", stdin);
+  freopen(file".OUT", "w", stdout);
 
   ll t;
   cin >> t;
