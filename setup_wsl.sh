@@ -212,7 +212,7 @@ EOF
 mkdir -p ~/scripts
 
 # Move cpp.sh into ~/scripts
-mv cpp.sh ~/scripts/c.sh
+mv c.sh ~/scripts/c.sh
 
 # Make cpp.sh executable
 chmod +x ~/scripts/c.sh
