@@ -135,9 +135,9 @@ require('nvim-autopairs').setup{}
 require('Comment').setup()
 
 -- OneDark theme setup
--- require('onedark').load()
+require('onedark').load()
 
-vim.cmd('colo NeoSolarized')
+-- vim.cmd('colo NeoSolarized')
 
 require'lsp_signature'.setup({
   bind = true,
@@ -158,8 +158,9 @@ vim.api.nvim_set_keymap('i', '<C-Tab>', [[<Cmd>lua require'luasnip'.jump(1)<CR>]
 -- Move to previous placeholder in a snippet
 vim.api.nvim_set_keymap('i', '<C-S-Tab>', [[<Cmd>lua require'luasnip'.jump(-1)<CR>]], { noremap = true, silent = true })
 
-vim.opt.wrap = true
+vim.opt.wrap = false
 vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.smarttab = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -173,7 +174,7 @@ vim.opt.formatoptions:append("t")
 vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 
 -- Map <Leader>t to open a terminal in a horizontal split
-vim.api.nvim_set_keymap('n', '<Leader>t', ':split | te<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>t', ':vs | te<CR>', { noremap = true, silent = true })
 EOL
 
 # Install Neovim plugins using Packer
@@ -215,7 +216,7 @@ mkdir -p ~/scripts
 mv c.sh ~/scripts/c.sh
 
 # Make cpp.sh executable
-chmod +x ~/scripts/c.sh
+chmod u+x ~/scripts/c.sh
 
 # Add ~/scripts to the PATH if it's not already in there
 if ! echo "$PATH" | grep -q "$HOME/scripts"; then
