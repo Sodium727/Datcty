@@ -4,8 +4,6 @@ using namespace std;
 #define ll long long
 
 // Constants
-const ll MAX = LLONG_MAX;
-const ll MOD = 1e9 + 7;
 #define file ""
 
 // Helper functions
@@ -240,19 +238,13 @@ removeDuplicates(vector<ll>& arr)
 int 
 main()
 {
-  srand(time(0));
+  cin.tie(0)->ios::sync_with_stdio(false);
   double startTime = clock();
  
   freopen(file".INP", "r", stdin);
-  freopen(file".OUT", "w", stdout);
+  // freopen(file".OUT", "w", stdout);
 
-  ll t;
-  cin >> t;
-
-  while (t--)
-  {
-    // Your logic here
-  }
+  
   
   double endTime = clock();
   cout << '\n' << (endTime - startTime) / CLOCKS_PER_SEC;
