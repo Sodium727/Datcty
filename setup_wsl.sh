@@ -62,7 +62,7 @@ require('packer').startup(function(use)
   use {
    'nvim-telescope/telescope.nvim',
    requires = { {'nvim-lua/plenary.nvim'} }
-} 
+  } 
 end)
 
 -- Treesitter configuration
@@ -172,6 +172,15 @@ vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua require"lsp_signature".signature
 -- Map <Leader>t to open a terminal in a horizontal split
 vim.api.nvim_set_keymap('n', '<Leader>t', ':vs | te<CR>', { noremap = true, silent = true })
 
+-- Remap 'jk' to exit terminal insert mode
+vim.api.nvim_set_keymap('t', 'jk', [[<C-\><C-n>]], { noremap = true, silent = true })
+
+-- Quick navigation in terminal mode
+vim.api.nvim_set_keymap('t', '<C-h>', [[<C-\><C-n><C-w>h]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<C-j>', [[<C-\><C-n><C-w>j]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<C-k>', [[<C-\><C-n><C-w>k]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<C-l>', [[<C-\><C-n><C-w>l]], { noremap = true, silent = true })
+
 -- Snippet navigation with LuaSnip
 local luasnip = require("luasnip")
 
@@ -181,7 +190,7 @@ vim.api.nvim_set_keymap('i', '<C-Tab>', [[<Cmd>lua require'luasnip'.jump(1)<CR>]
 -- Move to previous placeholder in a snippet
 vim.api.nvim_set_keymap('i', '<C-S-Tab>', [[<Cmd>lua require'luasnip'.jump(-1)<CR>]], { noremap = true, silent = true })
 
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.smarttab = true
@@ -198,7 +207,6 @@ vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 
 -- with neoformat
 vim.cmd [[autocmd BufWritePre *.cpp,*.h Neoformat]]
-
 EOL
 
 # Install Neovim plugins using Packer
