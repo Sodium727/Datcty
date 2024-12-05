@@ -1,31 +1,3 @@
-#!/bin/bash
-# Bash to automate neovim setup (for C/C++)
-
-
-
-# Update and install Neovim, Git, build-essential, and clangd
-sudo apt update 
-sudo apt upgrade -y
-
-# Make sure to manually install the latest neovim version first (through .deb package)
-# https://github.com/neovim/neovim-releases/releases
-# sudo apt install ./nvim-linux64.deb
-
-# If doesn't work, remove the old neovim:
-# sudo apt remove neovim -y
-# sudo apt remove neovim-runtime -y
-
-sudo apt install -y git build-essential clangd
-
-# Install Packer plugin manager
-git clone --depth 1 https://github.com/wbthomason/packer.nvim \
-    ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
-# Create Neovim config directory if it doesn't exist
-mkdir -p ~/.config/nvim
-
-# Write the Neovim configuration to init.lua
-cat <<EOL > ~/.config/nvim/init.lua
 -- Bootstrap packer
 vim.cmd [[packadd packer.nvim]]
 
@@ -85,7 +57,6 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gl', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-a>', 'ggVG', opts)
 end
 
 local on_attach = function(client, bufnr)
@@ -142,7 +113,17 @@ cmp.setup({
 require('nvim-autopairs').setup{}
 
 -- Commenting setup
-require('Comment').setup()
+require('Comment').setup({
+  padding = true,      -- Adds a space after the comment delimiters
+  sticky = true,       -- Keeps the cursor in place when commenting
+  ignore = nil,        -- Ignore certain filetypes from being commented
+  toggler = {
+    block = 'gc' -- Key mapping for block comments (multiline)
+  },
+  opleader = {
+    block = 'gc'
+  }
+})
 
 -- OneDark theme setup
 require('onedark').load()
@@ -157,7 +138,11 @@ require'lsp_signature'.setup({
 })
 
 -- Keybinding for signature help (argument hints)
+vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua require"lsp_signature".signature_help()<CR>', { noremap = true, silent = true })
+
+-- Map <Leader>t to open a terminal in a horizontal split
+vim.api.nvim_set_keymap('n', '<Leader>t', ':vs | te<CR>', { noremap = true, silent = true })
 
 -- Snippet navigation with LuaSnip
 local luasnip = require("luasnip")
@@ -186,57 +171,3 @@ vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 -- with neoformat
 vim.cmd [[autocmd BufWritePre *.cpp,*.h Neoformat]]
 
--- Map <Leader>t to open a terminal in a horizontal split
-vim.api.nvim_set_keymap('n', '<Leader>t', ':vs | te<CR>', { noremap = true, silent = true })
-
-EOL
-
-# Install Neovim plugins using Packer
-nvim +PackerInstall
-
-cat << 'EOF' > c.sh
-#!/bin/bash
-
-# Check if the file name is provided
-if [ -z "$1" ]; then
-  echo "Usage: ./c.sh <filename.cpp>"
-  exit 1
-fi
-
-# Extract file name without extension
-filename="${1%.*}"
-
-# Compile the C++ file with g++
-echo "Compiling $1..."
-g++ -std=c++14 -w -o "$filename" "$1"
-
-# Check if compilation was successful
-if [ $? -eq 0 ]; then
-  echo "Compilation successful. Running $filename..."
-  echo "------------------------------"
-  ./"$filename"
-  echo
-  echo "------------------------------"
-  rm "$filename"
-else
-  echo "Compilation failed."
-fi
-EOF
-
-# Create the ~/scripts directory if it doesn't exist
-mkdir -p ~/scripts
-
-# Move cpp.sh into ~/scripts
-mv c.sh ~/scripts/c.sh
-
-# Make cpp.sh executable
-chmod u+x ~/scripts/c.sh
-
-# Add ~/scripts to the PATH if it's not already in there
-if ! echo "$PATH" | grep -q "$HOME/scripts"; then
-  echo 'export PATH="$PATH:$HOME/scripts"' >> ~/.bashrc
-  source ~/.bashrc
-fi
-
-
-echo "C/C++ setup complete!"
