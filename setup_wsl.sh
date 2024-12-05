@@ -1,3 +1,31 @@
+#!/bin/bash
+# Bash to automate neovim setup (for C/C++)
+
+
+
+# Update and install Neovim, Git, build-essential, and clangd
+sudo apt update 
+sudo apt upgrade -y
+
+# Make sure to manually install the latest neovim version first (through .deb package)
+# https://github.com/neovim/neovim-releases/releases
+# sudo apt install ./nvim-linux64.deb
+
+# If doesn't work, remove the old neovim:
+# sudo apt remove neovim -y
+# sudo apt remove neovim-runtime -y
+
+sudo apt install -y git build-essential clangd
+
+# Install Packer plugin manager
+git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+    ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+# Create Neovim config directory if it doesn't exist
+mkdir -p ~/.config/nvim
+
+# Write the Neovim configuration to init.lua
+cat <<EOL > ~/.config/nvim/init.lua
 -- Bootstrap packer
 vim.cmd [[packadd packer.nvim]]
 
@@ -171,3 +199,54 @@ vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 -- with neoformat
 vim.cmd [[autocmd BufWritePre *.cpp,*.h Neoformat]]
 
+EOL
+
+# Install Neovim plugins using Packer
+nvim +PackerInstall
+
+cat << 'EOF' > c.sh
+#!/bin/bash
+
+# Check if the file name is provided
+if [ -z "$1" ]; then
+  echo "Usage: ./c.sh <filename.cpp>"
+  exit 1
+fi
+
+# Extract file name without extension
+filename="${1%.*}"
+
+# Compile the C++ file with g++
+echo "Compiling $1..."
+g++ -std=c++14 -w -o "$filename" "$1"
+
+# Check if compilation was successful
+if [ $? -eq 0 ]; then
+  echo "Compilation successful. Running $filename..."
+  echo "------------------------------"
+  ./"$filename"
+  echo
+  echo "------------------------------"
+  rm "$filename"
+else
+  echo "Compilation failed."
+fi
+EOF
+
+# Create the ~/scripts directory if it doesn't exist
+mkdir -p ~/scripts
+
+# Move cpp.sh into ~/scripts
+mv c.sh ~/scripts/c.sh
+
+# Make cpp.sh executable
+chmod u+x ~/scripts/c.sh
+
+# Add ~/scripts to the PATH if it's not already in there
+if ! echo "$PATH" | grep -q "$HOME/scripts"; then
+  echo 'export PATH="$PATH:$HOME/scripts"' >> ~/.bashrc
+  source ~/.bashrc
+fi
+
+
+echo "C/C++ setup complete!"
