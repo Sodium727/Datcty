@@ -48,6 +48,16 @@ require('packer').startup(function(use)
   use 'navarasu/onedark.nvim'
   use 'overcache/NeoSolarized'
   use 'ray-x/lsp_signature.nvim'
+  use({
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
+  })
+  use 'sbdchd/neoformat'
 
   use {
    'nvim-telescope/telescope.nvim',
@@ -173,8 +183,12 @@ vim.opt.formatoptions:append("t")
 
 vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 
+-- with neoformat
+vim.cmd [[autocmd BufWritePre *.cpp,*.h Neoformat]]
+
 -- Map <Leader>t to open a terminal in a horizontal split
 vim.api.nvim_set_keymap('n', '<Leader>t', ':vs | te<CR>', { noremap = true, silent = true })
+
 EOL
 
 # Install Neovim plugins using Packer
