@@ -666,15 +666,6 @@ bool isPalindrome(ll num) {
   return original == reversed;
 }
 
-ll countSetBits(ll n) {
-  ll count = 0;
-  while (n) {
-    count += n & 1;
-    n >>= 1;
-  }
-  return count;
-}
-
 // Remove duplicates from a vector
 void removeDuplicates(vector<ll> &arr) {
   sort(arr.begin(), arr.end());
@@ -688,8 +679,8 @@ int main() {
   ifstream cin(file ".INP");
   ofstream fout(file ".OUT");
 
-  double endTime = clock();
-  cout << fixed << setprecision(7) << (endTime - startTime) / CLOCKS_PER_SEC;
+  cout << '\n'
+       << fixed << setprecision(7) << (clock() - startTime) / CLOCKS_PER_SEC;
 
   return 0;
 }
