@@ -684,8 +684,8 @@ int main() {
   cin.tie(0)->ios::sync_with_stdio(false);
   double startTime = clock();
 
-  freopen(file ".INP", "r", stdin);
-  // freopen(file".OUT", "w", stdout);
+  ifstream cin(file ".INP");
+  ofstream fout(file ".OUT");
 
   double endTime = clock();
   cout << '\n' << (endTime - startTime) / CLOCKS_PER_SEC;
