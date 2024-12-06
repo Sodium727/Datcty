@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <iomanip>
 using namespace std;
 
 #define ll long long
@@ -688,7 +689,7 @@ int main() {
   ofstream fout(file ".OUT");
 
   double endTime = clock();
-  cout << '\n' << (endTime - startTime) / CLOCKS_PER_SEC;
+  cout << fixed << setprecision(7) << (endTime - startTime) / CLOCKS_PER_SEC;
 
   return 0;
 }
