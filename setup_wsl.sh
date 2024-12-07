@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Bash to automate neovim setup (for C/C++)
 
 
