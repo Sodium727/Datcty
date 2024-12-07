@@ -514,6 +514,43 @@ using namespace std;
 
 // Helper functions
 
+inline vector<ll> calculateDivisorSum(const ll &limit) {
+  vector<ll> divisorSum(limit + 1, 0);
+
+  for (ll i = 1; i * i <= limit; ++i) {
+    for (ll j = i; j <= limit; j += i) {
+      divisorSum[j] += i;
+      if (i != j / i) {
+        divisorSum[j] += j / i;
+      }
+    }
+  }
+
+  return divisorSum;
+}
+
+inline vector<int> countDivisors(const ll &limit) {
+  vector<int> divisors(limit + 1, 0);
+  for (int i = 1; i * i <= limit; ++i) {
+    for (int j = i; j <= limit; j += i) {
+      ++divisors[j];
+      if (j != i * i) {
+        ++divisors[j];
+      }
+    }
+  }
+  return divisors;
+}
+
+inline vector<ll> calculateDivisor(const ll &limit) {
+  vector<ll> divisorSum(limit + 1, 0);
+  for (ll i = 1; i < limit + 1; ++i)
+    for (ll j = 2 * i; j < limit + 1; j += i)
+      divisorSum[j] += 1;
+
+  return divisorSum;
+}
+
 ll modPow(ll base, ll exp, ll mod) {
   ll result = 1;
   while (exp > 0) {
