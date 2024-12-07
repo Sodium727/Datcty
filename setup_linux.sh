@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Bash to automate neovim setup (for C/C++)
 
 
@@ -226,7 +226,7 @@ filename="${1%.*}"
 
 # Compile the C++ file with g++
 echo "Compiling $1..."
-g++ -std=c++14 -w -o "$filename" "$1"
+g++ -O2 -std=c++14 -w -o "$filename" "$1"
 
 # Check if compilation was successful
 if [ $? -eq 0 ]; then
