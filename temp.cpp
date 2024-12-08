@@ -699,6 +699,31 @@ void removeDuplicates(vector<ll> &arr) {
   arr.erase(unique(arr.begin(), arr.end()), arr.end());
 }
 
+string generateTestCase(int max_n, int max_m, int max_k) {
+  // Random seed initialization
+  srand(time(0));
+
+  // Generate random grid size n, m and budget k
+  int n = rand() % max_n + 1; // Random n from 1 to max_n
+  int m = rand() % max_m + 1; // Random m from 1 to max_m
+  int k = rand() % max_k + 1; // Random budget from 1 to max_k
+
+  stringstream testCase; // Stringstream to store the test case
+
+  // Add the grid size and budget
+  testCase << n << " " << m << " " << k << "\n";
+
+  // Generate random land costs for each cell (between 1 and 100)
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < m; ++j) {
+      testCase << rand() % 100 + 1 << " "; // Random cost between 1 and 100
+    }
+    testCase << "\n";
+  }
+
+  return testCase.str(); // Return the test case as a string
+}
+
 int main() {
   cin.tie(0)->ios::sync_with_stdio(false);
   double startTime = clock();
@@ -707,7 +732,7 @@ int main() {
   ofstream fout(file ".OUT");
 
   cout << '\n'
-       << fixed << setprecision(3) << (clock() - startTime) / CLOCKS_PER_SEC;
+       << fixed << setprecision(5) << (clock() - startTime) / CLOCKS_PER_SEC;
 
   return 0;
 }
