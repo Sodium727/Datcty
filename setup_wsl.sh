@@ -15,7 +15,7 @@ sudo apt upgrade -y
 # sudo apt remove neovim -y
 # sudo apt remove neovim-runtime -y
 
-sudo apt install -y git build-essential clangd
+sudo apt install -y git build-essential clangd clang-format
 
 # Install Packer plugin manager
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
