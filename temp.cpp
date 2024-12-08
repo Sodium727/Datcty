@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <iomanip>
 using namespace std;
 
 #define ll long long
@@ -542,15 +541,6 @@ inline vector<int> countDivisors(const ll &limit) {
   return divisors;
 }
 
-inline vector<ll> calculateDivisor(const ll &limit) {
-  vector<ll> divisorSum(limit + 1, 0);
-  for (ll i = 1; i < limit + 1; ++i)
-    for (ll j = 2 * i; j < limit + 1; j += i)
-      divisorSum[j] += 1;
-
-  return divisorSum;
-}
-
 ll modPow(ll base, ll exp, ll mod) {
   ll result = 1;
   while (exp > 0) {
@@ -717,7 +707,7 @@ int main() {
   ofstream fout(file ".OUT");
 
   cout << '\n'
-       << fixed << setprecision(7) << (clock() - startTime) / CLOCKS_PER_SEC;
+       << fixed << setprecision(3) << (clock() - startTime) / CLOCKS_PER_SEC;
 
   return 0;
 }
