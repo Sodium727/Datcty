@@ -699,6 +699,144 @@ void removeDuplicates(vector<ll> &arr) {
   arr.erase(unique(arr.begin(), arr.end()), arr.end());
 }
 
+class BigInt {
+public:
+  // Constructor to initialize BigInt with a string
+  BigInt(const std::string &num) : value(num) {}
+
+  // Addition (handles negative numbers for subtraction)
+  static std::string add(const std::string &num1, const std::string &num2) {
+    // Case 1: If both numbers are positive
+    if (num1[0] != '-' && num2[0] != '-') {
+      int carry = 0;
+      int i = num1.size() - 1, j = num2.size() - 1;
+      std::string result;
+
+      while (i >= 0 || j >= 0 || carry) {
+        int sum = carry;
+        if (i >= 0)
+          sum += num1[i--] - '0';
+        if (j >= 0)
+          sum += num2[j--] - '0';
+
+        carry = sum / 10;
+        result += (sum % 10) + '0';
+      }
+
+      std::reverse(result.begin(), result.end());
+      return result;
+    }
+
+    // Case 2: If one of the numbers is negative
+    if (num1[0] == '-' && num2[0] != '-') {
+      return subtract(num2, num1.substr(1)); // Subtract num1 from num2
+    }
+    if (num1[0] != '-' && num2[0] == '-') {
+      return subtract(num1, num2.substr(1)); // Subtract num2 from num1
+    }
+
+    // Case 3: If both numbers are negative (they become a positive addition)
+    if (num1[0] == '-' && num2[0] == '-') {
+      return "-" +
+             add(num1.substr(1),
+                 num2.substr(
+                     1)); // Add their absolute values and add a negative sign
+    }
+
+    return "0";
+  }
+
+  // Subtraction of two large numbers
+  static std::string subtract(const std::string &num1,
+                              const std::string &num2) {
+    if (num1 < num2) {
+      return "-" + subtract(num2, num1); // Swap if num1 is smaller than num2
+    }
+
+    int borrow = 0;
+    int i = num1.size() - 1, j = num2.size() - 1;
+    std::string result;
+
+    while (i >= 0 || j >= 0 || borrow) {
+      int diff = borrow;
+      if (i >= 0)
+        diff += num1[i--] - '0';
+      if (j >= 0)
+        diff -= num2[j--] - '0';
+
+      if (diff < 0) {
+        diff += 10;
+        borrow = -1;
+      } else {
+        borrow = 0;
+      }
+
+      result += diff + '0';
+    }
+
+    return removeLeadingZeros(std::string(result.rbegin(), result.rend()));
+  }
+
+  // Multiplication of two large numbers
+  static std::string multiply(const std::string &num1,
+                              const std::string &num2) {
+    int m = num1.size(), n = num2.size();
+    std::vector<int> result(m + n, 0);
+
+    for (int i = m - 1; i >= 0; --i) {
+      for (int j = n - 1; j >= 0; --j) {
+        int mul = (num1[i] - '0') * (num2[j] - '0');
+        int sum = mul + result[i + j + 1];
+        result[i + j + 1] = sum % 10;
+        result[i + j] += sum / 10;
+      }
+    }
+
+    std::string product;
+    for (int i = 0; i < result.size(); ++i) {
+      if (!(product.empty() && result[i] == 0)) { // Skip leading zeros
+        product += result[i] + '0';
+      }
+    }
+
+    return product.empty() ? "0" : product;
+  }
+
+  // Division of large numbers (returns quotient and remainder)
+  static std::pair<std::string, std::string> divide(const std::string &num1,
+                                                    const std::string &num2) {
+    if (num2 == "0")
+      throw std::invalid_argument("Division by zero.");
+
+    std::string quotient = "0";
+    std::string remainder = num1;
+
+    for (size_t i = 0; i < num1.size(); ++i) {
+      remainder += num1[i];
+      int count = 0;
+
+      while (remainder >= num2) {
+        remainder = subtract(remainder, num2);
+        ++count;
+      }
+
+      quotient += std::to_string(count);
+    }
+
+    return {quotient, remainder};
+  }
+
+private:
+  // Helper function to remove leading zeros
+  static std::string removeLeadingZeros(const std::string &str) {
+    size_t nonZeroIndex = str.find_first_not_of('0');
+    return (nonZeroIndex != std::string::npos) ? str.substr(nonZeroIndex) : "0";
+  }
+
+  // Data member for the value (optional for storing a single BigInt)
+  std::string value;
+};
+
 string generateTestCase(int max_n, int max_m, int max_k) {
   // Random seed initialization
   srand(time(0));
