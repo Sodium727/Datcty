@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <chrono>
+#include <iomanip>
 using namespace std;
 
 #define ll long long
@@ -864,13 +866,14 @@ string generateTestCase(int max_n, int max_m, int max_k) {
 
 int main() {
   cin.tie(0)->ios::sync_with_stdio(false);
-  double startTime = clock();
+  auto time = chrono::high_resolution_clock::now();
 
   ifstream cin(file ".INP");
   ofstream fout(file ".OUT");
 
-  cout << '\n'
-       << fixed << setprecision(5) << (clock() - startTime) / CLOCKS_PER_SEC;
+  cout << fixed << setprecision(5)
+       << chrono::duration<double>(chrono::high_resolution_clock::now() - time)
+              .count();
 
   return 0;
 }
