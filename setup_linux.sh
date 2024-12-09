@@ -50,7 +50,7 @@ require('packer').startup(function(use)
   use 'ray-x/lsp_signature.nvim'
   use({
     "kylechui/nvim-surround",
-    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    tag = "*", -- Use for stability; omit to use  branch for the latest features
     config = function()
         require("nvim-surround").setup({
             -- Configuration here, or leave empty to use defaults
@@ -154,9 +154,9 @@ require('Comment').setup({
 })
 
 -- OneDark theme setup
-require('onedark').load()
+--[[ require('onedark').load() ]]
 
--- vim.cmd('colo NeoSolarized')
+vim.cmd('colo NeoSolarized')
 
 require'lsp_signature'.setup({
   bind = true,
@@ -171,6 +171,8 @@ vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua require"lsp_signature".signature
 
 -- Map <Leader>t to open a terminal in a horizontal split
 vim.api.nvim_set_keymap('n', '<Leader>t', ':vs | te<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 
 -- Remap 'jk' to exit terminal insert mode
 vim.api.nvim_set_keymap('t', 'jk', [[<C-\><C-n>]], { noremap = true, silent = true })
@@ -207,6 +209,7 @@ vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 
 -- with neoformat
 vim.cmd [[autocmd BufWritePre *.cpp,*.h Neoformat]]
+
 EOL
 
 # Install Neovim plugins using Packer
