@@ -1,6 +1,4 @@
 #include <bits/stdc++.h>
-#include <chrono>
-#include <iomanip>
 using namespace std;
 
 #define ll long long
@@ -545,13 +543,41 @@ inline vector<int> countDivisors(const ll &limit) {
 
 ll modPow(ll base, ll exp, ll mod) {
   ll result = 1;
+  base %= mod;
   while (exp > 0) {
-    if (exp % 2 == 1)
+    if (exp % 2)
       result = (result * base) % mod;
     base = (base * base) % mod;
     exp /= 2;
   }
   return result;
+}
+
+long long binaryPower(int a, int n) {
+  long long result = 1;
+  while (n > 0) {
+    if (n % 2 == 1)
+      result *= a;
+    a *= a;
+    n /= 2;
+  }
+  return result;
+}
+
+ll combination(int n, int k, ll mod) {
+  ll C[1005][1005];
+
+  // Initialize base cases for binomial coefficients
+  for (int i = 0; i <= n; i++) {
+    for (int j = 0; j <= i; j++) {
+      if (i == j || j == 0) {
+        C[i][j] = 1;
+      } else {
+        C[i][j] = ((C[i - 1][j - 1] % mod) + (C[i - 1][j] % mod)) % mod;
+      }
+    }
+  }
+  return C[n][k];
 }
 
 vector<bool> sievePrimes(ll limit) {
@@ -562,6 +588,20 @@ vector<bool> sievePrimes(ll limit) {
       for (ll j = i * i; j <= limit; j += i)
         isPrime[j] = false;
   return isPrime;
+}
+
+void segmentedSieve(long long L, long long R, vector<bool> &prime) {
+  vector<bool> isPrime(R - L + 1, true);
+  for (long long i = 2; i * i <= R; i++) {
+    for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i) {
+      isPrime[j - L] = false;
+    }
+  }
+  for (long long i = max(2LL, L); i <= R; i++) {
+    if (isPrime[i - L]) {
+      prime[i - L] = true;
+    }
+  }
 }
 
 bool isPrime(ll num) {
@@ -647,6 +687,22 @@ map<ll, ll> primeFactorization(ll n) {
   if (n > 1)
     factors[n]++; // n is prime
   return factors;
+}
+
+int primePowerInFactorial(int N, int p) {
+  int power = 0;
+  for (int i = p; i <= N; i *= p) {
+    power += N / i;
+  }
+  return power;
+}
+
+int countTrailingZerosInFactorial(int N) {
+  int zeros = 0;
+  for (int i = 5; i <= N; i *= 5) {
+    zeros += N / i;
+  }
+  return zeros;
 }
 
 ll modInverse(ll a, ll mod) {
