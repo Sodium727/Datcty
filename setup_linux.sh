@@ -15,7 +15,7 @@ sudo apt upgrade -y
 # sudo apt remove neovim -y
 # sudo apt remove neovim-runtime -y
 
-sudo apt install -y git build-essential clangd xclip dos2unix ibus-unikey tree libreoffice qbittorrent btop htop zenity gnome-disk-utility gdb ripgrep unrar rar zip unzip clang-format
+sudo apt install -y git build-essential clangd xclip dos2unix ibus-unikey tree libreoffice neofetch qbittorrent btop htop zenity gnome-disk-utility gdb ripgrep unrar rar zip unzip clang-format
 
 # Install Packer plugin manager
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
