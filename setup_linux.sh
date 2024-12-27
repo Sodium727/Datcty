@@ -46,7 +46,6 @@ require('packer').startup(function(use)
   use 'windwp/nvim-autopairs'
   use 'numToStr/Comment.nvim'
   use 'navarasu/onedark.nvim'
-  use 'overcache/NeoSolarized'
   use 'ray-x/lsp_signature.nvim'
   use({
     "kylechui/nvim-surround",
@@ -63,77 +62,118 @@ require('packer').startup(function(use)
    'nvim-telescope/telescope.nvim',
    requires = { {'nvim-lua/plenary.nvim'} }
   } 
+  use 'akinsho/bufferline.nvim'
+  use 'nvim-tree/nvim-tree.lua'
 end)
 
--- Treesitter configuration
+-- Treesitter Configuration
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"c", "cpp", "html", "lua", "css", "javascript", "rust", "python"},
-  highlight = { enable = true, disable = {}, },
+  ensure_installed = { "c", "cpp", "lua", "javascript", "rust", "python", "html", "css" },
+  highlight = { enable = true },
+  auto_install = true,
 }
 
--- LSP setup
+-- LSP Setup
 local lspconfig = require('lspconfig')
-lspconfig.clangd.setup{}
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- LSP Key Mappings
 local function lsp_keymaps(bufnr)
-  local opts = { noremap=true, silent=true }
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gT', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gl', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  local opts = { noremap = true, silent = true }
+  local keymap = vim.api.nvim_buf_set_keymap
+  keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  keymap(bufnr, 'n', 'gT', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 end
 
 local on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
 end
 
--- Configure clangd with on_attach
-lspconfig.clangd.setup{
-  on_attach = on_attach
-}
+-- Rust LSP setup
+lspconfig.rust_analyzer.setup({
+  cmd = { "rust-analyzer" }, -- Ensure `rust-analyzer` is installed and in your PATH
+  on_attach = function(client, bufnr)
+    lsp_keymaps(bufnr)
+    client.server_capabilities.semanticTokensProvider = nil -- Fix for some issues with diagnostics
+  end,
+  capabilities = capabilities,
+  settings = {
+    ["rust-analyzer"] = {
+      assist = {
+        importGranularity = "module",
+        importPrefix = "by_self",
+      },
+      cargo = {
+        loadOutDirsFromCheck = true,
+      },
+      procMacro = {
+        enable = true,
+      },
+      checkOnSave = {
+        command = "clippy", -- Enables Clippy linting for better diagnostics
+      },
+    },
+  },
+})
 
--- nvim-cmp setup
+-- Additional LSPs
+lspconfig.clangd.setup({ on_attach = on_attach, capabilities = capabilities })
+
 local cmp = require'cmp'
+-- nvim-cmp Configuration (for better appearance)
 cmp.setup({
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = {
-    -- Override these mappings to ensure they don't interfere with snippet navigation
     ['<Tab>'] = cmp.mapping(function(fallback)
-      if require'luasnip'.expand_or_jumpable() then
-        require'luasnip'.expand_or_jump()  -- Jump to the next placeholder
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
       elseif cmp.visible() then
-        cmp.select_next_item()  -- Select next item in the completion list
+        cmp.select_next_item()
       else
-        fallback()  -- Default action (insert a tab)
+        fallback()
       end
     end, { 'i', 's' }),
 
     ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if require'luasnip'.jumpable(-1) then
-        require'luasnip'.jump(-1)  -- Jump to the previous placeholder
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       elseif cmp.visible() then
-        cmp.select_prev_item()  -- Select previous item in the completion list
+        cmp.select_prev_item()
       else
-        fallback()  -- Default action (insert a tab)
+        fallback()
       end
     end, { 'i', 's' }),
 
-    ['<C-Space>'] = cmp.mapping.complete(),  -- Ctrl+Space for completions
-    ['<C-e>'] = cmp.mapping.close(),         -- Ctrl+e to close completions
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),  -- Enter to confirm selection
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
   },
-  sources = {
+  sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'buffer' },
+    { name = 'buffer', keyword_length = 4 }, -- Suggestions from buffers
     { name = 'path' },
+    { name = 'luasnip' },
+  }),
+  window = {
+    documentation = cmp.config.window.bordered(), -- Adds borders to the documentation box
+    completion = cmp.config.window.bordered(),   -- Borders around the completion menu
+  },
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item.menu = ({
+        nvim_lsp = "[LSP]",
+        buffer = "[Buffer]",
+        path = "[Path]",
+        luasnip = "[Snip]",
+      })[entry.source.name]
+      return vim_item
+    end,
   },
 })
 
@@ -153,10 +193,7 @@ require('Comment').setup({
   }
 })
 
--- OneDark theme setup
---[[ require('onedark').load() ]]
-
-vim.cmd('colo NeoSolarized')
+vim.cmd('colo tokyonight-storm')
 
 require'lsp_signature'.setup({
   bind = true,
@@ -165,32 +202,31 @@ require'lsp_signature'.setup({
   hi_parameter = "Search",
 })
 
+local opt = { noremap = true, silent = true }
+local keymap = vim.api.nvim_set_keymap
 -- Keybinding for signature help (argument hints)
-vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua require"lsp_signature".signature_help()<CR>', { noremap = true, silent = true })
+keymap('n', '<C-a>', 'ggVG', opt)
+keymap('n', '<C-k>', '<cmd>lua require"lsp_signature".signature_help()<CR>', opt)
 
 -- Map <Leader>t to open a terminal in a horizontal split
-vim.api.nvim_set_keymap('n', '<Leader>t', ':vs | te<CR>', { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
-
--- Remap 'jk' to exit terminal insert mode
-vim.api.nvim_set_keymap('t', 'jk', [[<C-\><C-n>]], { noremap = true, silent = true })
+keymap('n', '<Leader>t', ':vs | te<CR>', opt)
+keymap('n', '<C-s>', ':w<CR>', opt)
+keymap('t', 'jk', [[<C-\><C-n>]], opt)
 
 -- Quick navigation in terminal mode
-vim.api.nvim_set_keymap('t', '<C-h>', [[<C-\><C-n><C-w>h]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('t', '<C-j>', [[<C-\><C-n><C-w>j]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('t', '<C-k>', [[<C-\><C-n><C-w>k]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('t', '<C-l>', [[<C-\><C-n><C-w>l]], { noremap = true, silent = true })
+keymap('t', '<C-h>', [[<C-\><C-n><C-w>h]], opt)
+keymap('t', '<C-j>', [[<C-\><C-n><C-w>j]], opt)
+keymap('t', '<C-k>', [[<C-\><C-n><C-w>k]], opt)
+keymap('t', '<C-l>', [[<C-\><C-n><C-w>l]], opt)
 
 -- Snippet navigation with LuaSnip
 local luasnip = require("luasnip")
 
 -- Move to next placeholder in a snippet
-vim.api.nvim_set_keymap('i', '<C-Tab>', [[<Cmd>lua require'luasnip'.jump(1)<CR>]], { noremap = true, silent = true })
+keymap('i', '<C-Tab>', [[<Cmd>lua require'luasnip'.jump(1)<CR>]], opt)
 
 -- Move to previous placeholder in a snippet
-vim.api.nvim_set_keymap('i', '<C-S-Tab>', [[<Cmd>lua require'luasnip'.jump(-1)<CR>]], { noremap = true, silent = true })
+keymap('i', '<C-S-Tab>', [[<Cmd>lua require'luasnip'.jump(-1)<CR>]], opt)
 
 vim.opt.wrap = true
 vim.opt.number = true
@@ -210,6 +246,8 @@ vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 -- with neoformat
 vim.cmd [[autocmd BufWritePre *.cpp,*.h Neoformat]]
 
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
 EOL
 
 # Install Neovim plugins using Packer
