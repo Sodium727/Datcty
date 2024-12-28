@@ -127,6 +127,7 @@ lspconfig.rust_analyzer.setup({
 -- Additional LSPs
 lspconfig.clangd.setup({ on_attach = on_attach, capabilities = capabilities })
 
+local luasnip = require('luasnip')
 local cmp = require'cmp'
 -- nvim-cmp Configuration (for better appearance)
 cmp.setup({
