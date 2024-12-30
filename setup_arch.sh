@@ -69,6 +69,8 @@ require('packer').startup(function(use)
   } 
   use 'akinsho/bufferline.nvim'
   use 'nvim-tree/nvim-tree.lua'
+  use 'rust-lang/rust.vim'
+  use 'folke/tokyonight.nvim'
 end)
 
 -- Treesitter Configuration
