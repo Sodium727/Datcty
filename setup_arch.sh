@@ -2,25 +2,8 @@
 # Bash script to automate Neovim setup for C/C++ on ArcoLinux (Arch-based)
 
 # Update the system and install required packages using pacman
-sudo pacman -Syu --noconfirm
-
 # Install required packages: Neovim, Git, build tools, clangd, etc.
-sudo pacman -S --noconfirm \
-  git \
-  base-devel \
-  clang \
-  xclip \
-  dos2unix \
-  ibus-unikey \
-  tree \
-  libreoffice-fresh \
-  neofetch \
-  qbittorrent \
-  btop \
-  htop \
-  gdb \
-  ripgrep \
-  neovim
+sudo pacman -Syyu --noconfirm --needed  git   base-devel   clang   xclip   dos2unix   ibus-unikey   tree   libreoffice-fresh   neofetch   qbittorrent   btop   htop   gdb   ripgrep  neovim
 
 # Install Packer plugin manager for Neovim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
