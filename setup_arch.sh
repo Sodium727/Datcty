@@ -76,6 +76,33 @@ local function lsp_keymaps(bufnr)
   keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+keymap(bufnr, 'n', 'ga', ':lopen<CR>', opts)
+keymap(bufnr, 'n', 'gl', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+
+-- Global diagnostics configuration
+vim.diagnostic.config({
+  virtual_text = true,  -- Enable virtual text (e.g., inline error/warning markers)
+  signs = true,         -- Show signs (icons in the gutter for errors/warnings)
+  underline = true,     -- Underline the text with issues
+  update_in_insert = true,  -- Prevent updating diagnostics while typing (you can set this to `true` for real-time updates)
+  severity_sort = true,  -- Sort diagnostics by severity (errors, warnings, etc.)
+
+  -- Customize the floating window appearance
+  float = {
+    border = "rounded",  -- Border style: can be 'none', 'single', 'double', 'rounded', 'solid'
+    source = "always",   -- Always show the source of the diagnostic (e.g., LSP or plugin)
+    header = "",         -- Custom header text (you can leave it empty or add something)
+    prefix = "",         -- Custom prefix for each diagnostic (e.g., "Error:", "Warning:", etc.)
+  },
+})
+
+-- Customize the diagnostics signs (optional)
+local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
 end
 
 local on_attach = function(client, bufnr)
@@ -84,7 +111,7 @@ end
 
 -- Rust LSP setup
 lspconfig.rust_analyzer.setup({
-  cmd = { "rust-analyzer" }, -- Ensure `rust-analyzer` is installed and in your PATH
+  cmd = { "rust-analyzer" }, -- Ensure  is installed and in your PATH
   on_attach = function(client, bufnr)
     lsp_keymaps(bufnr)
     client.server_capabilities.semanticTokensProvider = nil -- Fix for some issues with diagnostics
@@ -235,6 +262,7 @@ vim.opt.formatoptions:append("t")
 vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 
 -- with neoformat
+vim.g.neoformat_notify = 0
 vim.cmd [[autocmd BufWritePre *.cpp,*.h Neoformat]]
 
 vim.g.loaded_ruby_provider = 0
