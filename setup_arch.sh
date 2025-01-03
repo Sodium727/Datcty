@@ -319,5 +319,7 @@ if ! echo "$PATH" | grep -q "$HOME/scripts"; then
   source ~/.bashrc
 fi
 
-echo "C/C++ setup complete!"
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+echo "Setup complete!"
 
