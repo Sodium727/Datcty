@@ -275,51 +275,8 @@ EOL
 # Install Neovim plugins using Packer
 nvim +PackerInstall
 
-cat << 'EOF' > c.sh
-#!/bin/bash
-
-# Check if the file name is provided
-if [ -z "$1" ]; then
-  echo "Usage: ./c.sh <filename.cpp>"
-  exit 1
-fi
-
-# Extract file name without extension
-filename="${1%.*}"
-
-# Compile the C++ file with g++
-echo "Compiling $1..."
-g++ -O2 -std=c++14 -w -o "$filename" "$1"
-
-# Check if compilation was successful
-if [ $? -eq 0 ]; then
-  echo "Compilation successful. Running $filename..."
-  echo "------------------------------"
-  time ./"$filename"
-  echo
-  echo "------------------------------"
-  rm "$filename"
-else
-  echo "Compilation failed."
-fi
-EOF
-
-# Create the ~/scripts directory if it doesn't exist
-mkdir -p ~/scripts
-
-# Move cpp.sh into ~/scripts
-mv c.sh ~/scripts/c.sh
-
-# Make cpp.sh executable
-chmod u+x ~/scripts/c.sh
-
-# Add ~/scripts to the PATH if it's not already in there
-if ! echo "$PATH" | grep -q "$HOME/scripts"; then
-  echo 'export PATH="$PATH:$HOME/scripts"' >> ~/.bashrc
-  source ~/.bashrc
-fi
-
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
+rustup component add rust-analyzer
 echo "Setup complete!"
 
