@@ -13,7 +13,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay 
 makepkg -si
 
-rm yay
+rm yay -fr
 
 yay -S --noconfirm freeoffice spotify ttf-jetbrains-mono-nerd
 
