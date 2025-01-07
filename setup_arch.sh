@@ -3,10 +3,19 @@
 
 # Update the system and install required packages using pacman
 # Install required packages: Neovim, Git, build tools, clangd, etc.
-sudo pacman -Sy archlinux-keyring
+sudo pacman -Sy archlinux-keyring --needed
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
-sudo pacman -Syyu --noconfirm --needed  git   base-devel   clang   xclip   dos2unix   ibus-unikey   tree   libreoffice-fresh   neofetch   qbittorrent   btop   htop   gdb   ripgrep  neovim yay
+sudo pacman -Syyu --noconfirm --needed git base-devel clang xclip dos2unix ibus-unikey tree neofetch qbittorrent htop gdb ripgrep neovim
+
+git clone https://aur.archlinux.org/yay.git
+
+cd yay 
+makepkg -si
+
+rm yay
+
+yay -S --noconfirm freeoffice spotify ttf-jetbrains-mono-nerd
 
 # Install Packer plugin manager for Neovim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
@@ -275,8 +284,5 @@ EOL
 # Install Neovim plugins using Packer
 nvim +PackerInstall
 
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-rustup component add rust-analyzer
 echo "Setup complete!"
 
