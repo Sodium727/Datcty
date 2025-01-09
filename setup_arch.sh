@@ -19,7 +19,7 @@ makepkg -si
 
 rm yay -fr
 
-yay -S --noconfirm freeoffice spotify ttf-jetbrains-mono-nerd
+yay -S --noconfirm freeoffice spotify ttf-jetbrains-mono-nerd flashplayer-standalone
 
 # Install Packer plugin manager for Neovim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
