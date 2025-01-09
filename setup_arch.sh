@@ -6,7 +6,9 @@
 sudo pacman -Sy archlinux-keyring --needed
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
-sudo pacman -Syyu --noconfirm --needed git base-devel clang xclip dos2unix ibus-unikey tree neofetch qbittorrent htop gdb ripgrep neovim imv dosfstools
+sudo pacman -Syyu --noconfirm --needed git base-devel clang xclip dos2unix ibus-unikey tree neofetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector
+
+sudo reflector -c Vietnam -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
 git clone https://aur.archlinux.org/yay.git
 
