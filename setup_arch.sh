@@ -6,7 +6,7 @@
 sudo pacman -Sy archlinux-keyring --needed
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
-sudo pacman -Syy --noconfirm --needed git base-devel clang xclip dos2unix ibus-unikey tree fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector
+sudo pacman -Syy --noconfirm --needed git base-devel clang xclip dos2unix ibus-unikey tree fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g
 
 sudo reflector -c Vietnam -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
