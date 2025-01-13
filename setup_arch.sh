@@ -6,7 +6,7 @@
 sudo pacman -Sy archlinux-keyring --needed
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
-sudo pacman -Syy --noconfirm --needed git base-devel clang xclip dos2unix ibus-unikey tree fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g
+sudo pacman -Syy --noconfirm --needed git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g
 
 sudo reflector -c Vietnam -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
@@ -290,3 +290,7 @@ nvim +PackerInstall
 
 echo "Setup complete!"
 
+echo "A few more things to do: if you are using i3, paste this into the ~/.config/i3/config file::
+echo "exec --no-startup-id xset r rate 200 60"
+echo "exec --no-startup-id ibus-daemon"
+echo "bindsym $mod+Shift+s exec scrot -s - | xclip -selection clipboard -t image/png"
