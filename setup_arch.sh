@@ -6,7 +6,7 @@
 sudo pacman -Sy archlinux-keyring --needed
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
-sudo pacman -Syy --noconfirm --needed git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger
+sudo pacman -Syy --noconfirm --needed git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger playerctl
 
 sudo reflector -c Vietnam -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
@@ -290,8 +290,17 @@ nvim +PackerInstall
 
 echo "Setup complete!"
 
-echo "A few more things to do: if you are using i3, paste this into the ~/.config/i3/config file::
-echo "exec --no-startup-id xset r rate 200 60"
-echo "exec --no-startup-id ibus-daemon"
-echo "bindsym $mod+Shift+s exec scrot -s - | xclip -selection clipboard -t image/png"
-echo "bindsym $mod+Shift+Return exec i3-sensible-terminal -e ranger"
+cat <<EOF
+A few more things to do: if you are using i3, paste this into the ~/.config/i3/config file:
+exec --no-startup-id sleep 1 && xset r rate 200 60
+exec --no-startup-id ibus-daemon
+bindsym $mod+Shift+s exec scrot -s - | xclip -selection clipboard -t image/png
+bindsym $mod+Shift+Return exec i3-sensible-terminal -e ranger
+
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
+EOF
