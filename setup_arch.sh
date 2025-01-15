@@ -6,11 +6,11 @@
 sudo pacman -Sy archlinux-keyring --needed
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
-sudo pacman -Syy --noconfirm --needed git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger playerctl alsa-utils pipewire pipewire-pulse pamixer
+sudo pacman -Syy --noprogressbar --needed git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger playerctl alsa-utils pipewire pipewire-pulse pamixer
 
 sudo reflector -c Vietnam -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
-sudo pacman -Syyu --noconfirm
+sudo pacman -Syyu --noconfirm --noprogressbar
 
 git clone https://aur.archlinux.org/yay.git
 
@@ -19,7 +19,7 @@ makepkg -si
 
 rm yay -fr
 
-yay -S --noconfirm freeoffice spotify ttf-jetbrains-mono-nerd flashplayer-standalone
+yay -S --noprogressbar --needed freeoffice spotify ttf-jetbrains-mono-nerd flashplayer-standalone i3lock-color
 
 # Install Packer plugin manager for Neovim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
@@ -303,4 +303,6 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
+
+bindsym $mod+Shift+z exec --no-startup-id bash -c "i3lock -i path/to/your/background.png"
 EOF
