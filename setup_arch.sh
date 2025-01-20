@@ -304,5 +304,11 @@ bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
 
-bindsym $mod+Shift+z exec --no-startup-id bash -c "i3lock -i path/to/your/background.png"
+bindsym $mod+l exec --no-startup-id bash -c "i3lock -i path/to/your/bg.png"
+# Make sure to change some settings in the i3 config file. By default, mod+l traditionally serves a purpose of navigating.
+bindsym $mod+Shift+z exec --no-startup-id systemctl suspend
+
+exec --no-startup-id xinput --set-prop <device id> "libinput Accel Profile Enabled" 0, 1
+# Change those 1.5 to the desired cursor sensitivity.
+exec --no-startup-id xinput --set-prop <device id> "Coordinate Transformation Matrix" 1.5 0 0 0 1.5 0 0 0 1
 EOF
