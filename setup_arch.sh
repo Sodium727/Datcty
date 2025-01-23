@@ -6,7 +6,7 @@
 sudo pacman -Sy archlinux-keyring --needed
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
-sudo pacman -Sy --noprogressbar --needed git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts playerctl alsa-utils pipewire pipewire-pulse pamixer
+sudo pacman -Sy --noprogressbar --needed git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts playerctl alsa-utils pipewire pipewire-pulse pamixer brightnessctl
 
 sudo reflector -c Vietnam -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
@@ -308,7 +308,11 @@ bindsym $mod+l exec --no-startup-id bash -c "i3lock -i path/to/your/bg.png"
 # Make sure to change some settings in the i3 config file. By default, mod+l traditionally serves a purpose of navigating.
 bindsym $mod+Shift+z exec --no-startup-id systemctl suspend
 
+# "0, 1" for no acceleration; "1, 0" for acceleration.
 exec --no-startup-id xinput --set-prop <device id> "libinput Accel Profile Enabled" 0, 1
 # Change those 1.5 to the desired cursor sensitivity.
 exec --no-startup-id xinput --set-prop <device id> "Coordinate Transformation Matrix" 1.5 0 0 0 1.5 0 0 0 1
+
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
 EOF
