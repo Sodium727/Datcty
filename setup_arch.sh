@@ -6,7 +6,7 @@
 sudo pacman -Sy archlinux-keyring --needed
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
-sudo pacman -Sy --noprogressbar --needed nitrogen git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts playerctl alsa-utils pipewire pipewire-pulse pamixer brightnessctl
+sudo pacman -Sy --noprogressbar --needed libreoffice betterlockscreen nitrogen git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts playerctl alsa-utils pipewire pipewire-pulse pamixer brightnessctl
 
 sudo reflector -c Vietnam -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
@@ -19,7 +19,7 @@ makepkg -si
 
 rm yay -fr
 
-yay -S --noprogressbar --needed freeoffice spotify ttf-jetbrains-mono-nerd flashplayer-standalone i3lock-color
+yay -S --noprogressbar --needed spotify ttf-jetbrains-mono-nerd flashplayer-standalone
 
 # Install Packer plugin manager for Neovim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
@@ -304,7 +304,7 @@ bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
 
-bindsym $mod+l exec --no-startup-id bash -c "i3lock -i path/to/your/bg.png"
+bindsym $mod+l exec --no-startup-id betterlockscreen -u ~/Pictures/Tofumang.png -l blur
 # Make sure to change some settings in the i3 config file. By default, mod+l traditionally serves a purpose of navigating.
 bindsym $mod+Shift+z exec --no-startup-id systemctl suspend
 
