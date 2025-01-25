@@ -6,11 +6,11 @@
 sudo pacman -Sy archlinux-keyring --needed
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
-sudo pacman -Sy --noprogressbar --needed libreoffice betterlockscreen nitrogen git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts playerctl alsa-utils pipewire pipewire-pulse pamixer brightnessctl
-
+sudo pacman -S reflector --noconfirm --noprogressbar
 sudo reflector -c Vietnam -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
-sudo pacman -Syu --noconfirm --noprogressbar
+sudo pacman -Syu --noprogressbar --needed thunar libreoffice betterlockscreen nitrogen git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts playerctl alsa-utils pipewire pipewire-pulse pamixer brightnessctl
+
 
 git clone https://aur.archlinux.org/yay.git
 
@@ -294,8 +294,10 @@ cat <<EOF
 A few more things to do: if you are using i3, paste this into the ~/.config/i3/config file:
 exec --no-startup-id sleep 1 && xset r rate 200 60
 exec --no-startup-id ibus-daemon
+exec --no-startup-id sleep 1 && nitrogen --random --set-zoom-fill ~/Downloads/wallpaper
+
 bindsym $mod+Shift+s exec scrot -s - | xclip -selection clipboard -t image/png
-bindsym $mod+Shift+Return exec i3-sensible-terminal -e ranger
+bindsym $mod+Shift+Return exec thunar
 
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
@@ -304,9 +306,10 @@ bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
 
-bindsym $mod+l exec --no-startup-id betterlockscreen -u ~/Pictures/Tofumang.png -l blur
+bindsym $mod+l exec --no-startup-id betterlockscreen -u path/to/bg -l dimblur
 # Make sure to change some settings in the i3 config file. By default, mod+l traditionally serves a purpose of navigating.
 bindsym $mod+Shift+z exec --no-startup-id systemctl suspend
+bindsym $mod+b exec --no-startup-id firefox
 
 # "0, 1" for no acceleration; "1, 0" for acceleration.
 exec --no-startup-id xinput --set-prop <device id> "libinput Accel Profile Enabled" 0, 1
