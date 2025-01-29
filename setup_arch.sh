@@ -9,17 +9,11 @@ sudo pacman-key --populate archlinux
 sudo pacman -S reflector --noconfirm --noprogressbar
 sudo reflector -c Vietnam -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
-sudo pacman -Syu --noprogressbar --needed thunar libreoffice betterlockscreen nitrogen git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts playerctl alsa-utils pipewire pipewire-pulse pamixer brightnessctl
+sudo pacman -Syu --needed paru thunar libreoffice betterlockscreen nitrogen git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts playerctl alsa-utils pipewire pipewire-pulse pamixer brightnessctl
 
+paru -S --noconfirm --needed spotify ttf-jetbrains-mono-nerd flashplayer-standalone ly
 
-git clone https://aur.archlinux.org/yay.git
-
-cd yay 
-makepkg -si
-
-rm yay -fr
-
-yay -S --noprogressbar --needed spotify ttf-jetbrains-mono-nerd flashplayer-standalone
+sudo systemctl enable ly.service
 
 # Install Packer plugin manager for Neovim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
