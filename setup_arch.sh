@@ -9,9 +9,12 @@ sudo pacman-key --populate archlinux
 sudo pacman -S reflector --noconfirm --noprogressbar
 sudo reflector -c Vietnam -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
-sudo pacman -Syu --needed gnutls lib32-gnutls vulkan-intel lib32-vulkan-intel wine-mono paru thunar libreoffice betterlockscreen nitrogen git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts playerctl alsa-utils pipewire pipewire-pulse pamixer brightnessctl
+sudo pacman -Syu --needed wine-staging winetricks vulkan-headers lib32-mesa lib32-vulkan-icd-loader
+ mesa vulkan-intel gnutls lib32-gnutls vulkan-intel lib32-vulkan-intel wine-mono paru thunar libreoffice betterlockscreen nitrogen git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools reflector ntfs-3g ranger noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts playerctl alsa-utils pipewire pipewire-pulse pamixer brightnessctl
 
-paru -S --noconfirm --needed spotify ttf-jetbrains-mono-nerd flashplayer-standalone ly
+winetricks d3dcompiler_47 d3d9 d3d11 dxvk vulkan
+
+paru -S --noconfirm --needed spotify ttf-jetbrains-mono-nerd flashplayer-standalone ly itch
 
 sudo systemctl enable ly.service
 
