@@ -314,4 +314,6 @@ exec --no-startup-id xinput --set-prop <device id> "Coordinate Transformation Ma
 
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+
+for_window [class=".*"] floating enable
 EOF
