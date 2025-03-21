@@ -1,23 +1,20 @@
 #!/usr/bin/env bash
-# Bash script to automate Neovim setup for C/C++ on ArcoLinux (Arch-based)
+# Bash script to automate Neovim (mainly C/C++), Wine setup for Arch-based systems
 
 # Update the system and install required packages using pacman
 # Install required packages: Neovim, Git, build tools, clangd, etc.
-sudo pacman -Sy archlinux-keyring --needed
+sudo pacman -Sy --needed archlinux-keyring 
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
-sudo pacman -S reflector --noconfirm --noprogressbar --needed
-sudo reflector -c Vietnam -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
-sudo pacman -Syu --needed wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal v4l-utils lib32-v4l-utils libpulse lib32-libpulse libgpg-error lib32-libgpg-error alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib libjpeg-turbo lib32-libjpeg-turbo sqlite lib32-sqlite libxcomposite lib32-libxcomposite libxinerama lib32-libgcrypt libgcrypt lib32-libxinerama ncurses lib32-ncurses ocl-icd lib32-ocl-icd libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3 gst-plugins-base-libs lib32-gst-plugins-base-libs vulkan-icd-loader lib32-vulkan-icd-loader wine-staging winetricks vulkan-headers lib32-mesa lib32-vulkan-icd-loader mesa vulkan-intel gnutls lib32-gnutls vulkan-intel lib32-vulkan-intel wine-mono thunar libreoffice nitrogen git base-devel clang xclip dos2unix ibus-unikey tree scrot fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools ntfs-3g ranger noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts playerctl alsa-utils pipewire pipewire-pulse pamixer brightnessctl paru
+sudo pacman -Syu --needed wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal v4l-utils lib32-v4l-utils libpulse lib32-libpulse libgpg-error lib32-libgpg-error alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib libjpeg-turbo lib32-libjpeg-turbo sqlite lib32-sqlite libxcomposite lib32-libxcomposite libxinerama lib32-libgcrypt libgcrypt lib32-libxinerama ncurses lib32-ncurses ocl-icd lib32-ocl-icd libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3 gst-plugins-base-libs lib32-gst-plugins-base-libs vulkan-icd-loader lib32-vulkan-icd-loader wine-staging winetricks vulkan-headers lib32-mesa lib32-vulkan-icd-loader mesa vulkan-intel gnutls lib32-gnutls vulkan-intel lib32-vulkan-intel wine-mono git base-devel clang xclip dos2unix tree fastfetch qbittorrent htop gdb ripgrep neovim imv dosfstools ntfs-3g noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts
 
 winetricks d3dcompiler_47 d3d9 d3d11 dxvk vulkan
 
-paru -S --noconfirm --needed spotify ttf-jetbrains-mono-nerd flashplayer-standalone itch betterlockscreen
+yay -S --noconfirm --needed ttf-jetbrains-mono-nerd flashplayer-standalone
 
 # Install Packer plugin manager for Neovim
-git clone --depth 1 https://github.com/wbthomason/packer.nvim \
-    ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # Create Neovim config directory if it doesn't exist
 mkdir -p ~/.config/nvim
@@ -258,7 +255,7 @@ keymap('i', '<C-S-Tab>', [[<Cmd>lua require'luasnip'.jump(-1)<CR>]], opt)
 
 vim.opt.wrap = true
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.opt.smarttab = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -282,50 +279,39 @@ EOL
 # Install Neovim plugins using Packer
 nvim +PackerInstall
 
+git clone --depth 1 https://github.com/JaKooLit/Arch-Hyprland.git ~/Arch-Hyprland
+cd ~/Arch-Hyprland
+chmod +x install.sh
+./install.sh
+
 echo "Setup complete!"
 
 cat <<EOF
-A few more things to do: if you are using i3, paste this into the ~/.config/i3/config file:
-exec --no-startup-id sleep 1 && xset r rate 200 60
-exec --no-startup-id ibus-daemon
-exec --no-startup-id sleep 1 && nitrogen --random --set-zoom-fill ~/Downloads/wallpaper
-
-bindsym $mod+Shift+s exec scrot -s - | xclip -selection clipboard -t image/png
-bindsym $mod+Shift+Return exec thunar
-
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
-bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
-
-bindsym $mod+l exec --no-startup-id betterlockscreen -u path/to/bg -l dimblur
-# Make sure to change some settings in the i3 config file. By default, mod+l traditionally serves a purpose of navigating.
-bindsym $mod+Shift+z exec --no-startup-id systemctl suspend
-bindsym $mod+b exec --no-startup-id firefox
-
-# "0, 1" for no acceleration; "1, 0" for acceleration.
-exec --no-startup-id xinput --set-prop <device id> "libinput Accel Profile Enabled" 0, 1
-# Change those 1.5 to the desired cursor sensitivity.
-exec --no-startup-id xinput --set-prop <device id> "Coordinate Transformation Matrix" 1.5 0 0 0 1.5 0 0 0 1
-
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
-
-for_window [class=".*"] floating enable
-
-
-
 HEY THERE. IF YOU CANNOT INSTALL SOME CERTAIN PACKAGES, YOU CAN EITHER:
-- REMOVE THEM FROM THE LIST (MAKE CHANGES TO THE FILE)
-- CHECK /etc/pacman.conf, AND ADD CHAOTIC-AUR REPO:
+- CHECK /etc/pacman.conf, AND ADD ESSENTIAL REPOS:
+
+[core-testing]
+Include = /etc/pacman.d/mirrorlist
+
+[core]
+Include = /etc/pacman.d/mirrorlist
+
+[extra-testing]
+Include = /etc/pacman.d/mirrorlist
+
+[extra]
+Include = /etc/pacman.d/mirrorlist
+
+[multilib-testing]
+Include = /etc/pacman.d/mirrorlist
+
+[multilib]
+Include = /etc/pacman.d/mirrorlist
 
 [chaotic-aur]
 SigLevel = Never
-Server = https://cdn-mirror.chaotic.cx/chaotic-aur/
+Server = https://cdn-mirror.chaotic.cx/chaotic-aur/$arch
 
-MAKE SURE TO UNCOMMENT SOME 'TESTING' REPOS TOO.
-GOOD LUCK, MYSELF.
+GOOD LUCK.
 
 EOF
