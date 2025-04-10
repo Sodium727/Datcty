@@ -2,6 +2,7 @@
 
 # Script to quickly compile, run, and cleanup C++ programs
 # Wrote by DeepSeek + DeepThink
+# Move it to PATH: chmod +x quickrun.sh && sudo mv run.sh /usr/local/bin/run
 
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <file.cpp> [g++ options...]"
