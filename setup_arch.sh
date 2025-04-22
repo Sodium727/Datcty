@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # Bash script to automate Neovim (mainly C/C++), Wine setup for Arch-based systems
 
 # Update the system and install required packages using pacman
@@ -83,15 +84,15 @@ local function lsp_keymaps(bufnr)
   keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-keymap(bufnr, 'n', 'ga', ':lopen<CR>', opts)
-keymap(bufnr, 'n', 'gl', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+  keymap(bufnr, 'n', 'ga', ':lopen<CR>', opts)
+  keymap(bufnr, 'n', 'gl', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 
 -- Global diagnostics configuration
 vim.diagnostic.config({
   virtual_text = true,  -- Enable virtual text (e.g., inline error/warning markers)
   signs = true,         -- Show signs (icons in the gutter for errors/warnings)
   underline = true,     -- Underline the text with issues
-  update_in_insert = true,  -- Prevent updating diagnostics while typing (you can set this to `true` for real-time updates)
+  update_in_insert = false,  -- Prevent updating diagnostics while typing (you can set this to  for real-time updates)
   severity_sort = true,  -- Sort diagnostics by severity (errors, warnings, etc.)
 
   -- Customize the floating window appearance
@@ -144,7 +145,15 @@ lspconfig.rust_analyzer.setup({
 })
 
 -- Additional LSPs
-lspconfig.clangd.setup({ on_attach = on_attach, capabilities = capabilities })
+-- lspconfig.clangd.setup({ on_attach = on_attach, capabilities = capabilities })
+ lspconfig.clangd.setup({
+   on_attach = on_attach,
+   capabilities= capabilities,
+   cmd = { "clangd" },
+   filetypes = { "c", "cpp", "objc", "objcpp" },
+   root_dir = require('lspconfig.util').root_pattern("compile_commands.json", ".git"),
+ })
+
 
 local luasnip = require('luasnip')
 local cmp = require'cmp'
@@ -181,7 +190,7 @@ cmp.setup({
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'buffer', keyword_length = 4 }, -- Suggestions from buffers
+    { name = 'buffer', keyword_length = 1 }, -- Suggestions from buffers
     { name = 'path' },
     { name = 'luasnip' },
   }),
@@ -270,7 +279,7 @@ vim.cmd([[autocmd CursorMoved * normal! zvzz]])
 
 -- with neoformat
 vim.g.neoformat_notify = 0
-vim.cmd [[autocmd BufWritePre *.cpp,*.h Neoformat]]
+vim.cmd [[autocmd BufWritePre *.cpp,*.h,*c Neoformat]]
 
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
@@ -279,6 +288,7 @@ EOL
 # Install Neovim plugins using Packer
 nvim +PackerInstall
 
+# Setup Hyprland + Preconfigured setup
 git clone --depth 1 https://github.com/JaKooLit/Arch-Hyprland.git ~/Arch-Hyprland
 cd ~/Arch-Hyprland
 chmod +x install.sh
@@ -286,32 +296,26 @@ chmod +x install.sh
 
 echo "Setup complete!"
 
+# Extras
 cat <<EOF
-HEY THERE. IF YOU CANNOT INSTALL SOME CERTAIN PACKAGES, YOU CAN EITHER:
-- CHECK /etc/pacman.conf, AND ADD ESSENTIAL REPOS:
+IF SOME PACKAGES CANNOT BE INSTALLED:
+--> CHECK /etc/pacman.conf, AND ADD THESE REPOS:
 
 [core-testing]
 Include = /etc/pacman.d/mirrorlist
-
 [core]
 Include = /etc/pacman.d/mirrorlist
-
 [extra-testing]
 Include = /etc/pacman.d/mirrorlist
-
 [extra]
 Include = /etc/pacman.d/mirrorlist
-
 [multilib-testing]
 Include = /etc/pacman.d/mirrorlist
-
 [multilib]
 Include = /etc/pacman.d/mirrorlist
-
 [chaotic-aur]
 SigLevel = Never
 Server = https://cdn-mirror.chaotic.cx/chaotic-aur/$arch
 
 GOOD LUCK.
-
 EOF
