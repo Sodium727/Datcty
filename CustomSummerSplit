@@ -47,10 +47,14 @@
     "passthrough": false,
     "gtk-layer-shell": true,
     "reload_style_on_change": true,
-    // "modules-left": [
-    //   "clock",
-    // ],
-    "modules-center": ["hyprland/workspaces"],
+     "modules-left": [
+	"custom/cava_mviz",
+	"custom/playerctl",
+     ],
+     "modules-right": [
+	"tray",
+     ],
+    "modules-center": ["hyprland/workspaces#rw"],
     //"modules-center": ["group/power"],
     // "modules-right": [
     //   "backlight",

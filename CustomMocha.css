@@ -53,7 +53,7 @@
 
 
 window#waybar {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 0px;
 }
 
@@ -72,36 +72,34 @@ tooltip label {
 
 #taskbar button,
 #workspaces button {
-  color: @surface2;
+  color: @transparent;
   background-color: transparent;
-  	padding-top: 4px;
-	padding-bottom: 4px;
-	padding-right: 6px;
-	padding-left: 4px;
+ 	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 0px;
+	padding-left: 0px;
 }
 
 #taskbar button.active,
 #workspaces button.active {
-  color: @maroon;
+  color: @sapphire;
 }
 
 #workspaces button.focused {
   color: @rosewater;
   background: transparent;
-  border-radius: 15px;
 }
 
 #workspaces button.urgent {
   color: #11111b;
-  background: transparent;
+  background: @red;
   border-radius: 15px;
 }
 
 #taskbar button:hover,
 #workspaces button:hover {
-  background: transparent;
+  background: @maroon;
   color: @flamingo;
-  border-radius: 15px;
 }
 
 #backlight,
@@ -129,7 +127,11 @@ tooltip label {
 #workspaces,
 #custom-backlight,
 #custom-browser,
-#custom-cava_mviz,
+#custom-cava_mviz {
+  color: @sapphire;
+  background: transparent;
+  border-radius: 15px;
+}
 #custom-cycle_wall,
 #custom-dot_update,
 #custom-file_manager,
@@ -140,7 +142,11 @@ tooltip label {
 #custom-hint,
 #custom-hypridle,
 #custom-menu,
-#custom-playerctl,
+#custom-playerctl {
+  color: @sapphire;
+  background: transparent;
+  border-radius: 15px;
+}
 #custom-power_vertical,
 #custom-power,
 #custom-quit,
