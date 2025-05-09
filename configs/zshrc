@@ -24,3 +24,5 @@ alias yt='yt-dlp -x'
 # run evtest to figure out the devices be disabled
 #alias tog-kb='sudo evtest --grab /dev/input/event8'
 #alias tog-tpad='sudo evtest --grab /dev/input/event11'
+
+wallust run /home/sodium/.config/hypr/wallpaper_effects/.wallpaper_current
