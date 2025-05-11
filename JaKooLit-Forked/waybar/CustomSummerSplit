@@ -1,0 +1,66 @@
+/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
+
+/* ### DUAL TOP and BOTTOM v 2### */
+
+/* Custom Waybar Config by Sodium727 */
+
+[
+  {
+  "include": [
+  "$HOME/.config/waybar/Modules",
+  "$HOME/.config/waybar/ModulesWorkspaces",
+  "$HOME/.config/waybar/ModulesCustom",
+  "$HOME/.config/waybar/ModulesGroups",
+  "$HOME/.config/waybar/UserModules",
+  ],
+    "name": "topbar",
+    "layer": "top",
+    "position": "top",
+    //"mode": "dock",
+    "exclusive": true,
+    "spacing": 2,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "reload_style_on_change": true,
+    "modules-center": ["clock"],
+    // "modules-center": ["hyprland/workspaces"],
+    // "modules-center": ["wlr/taskbar"],
+    //"modules-right": ["pulseaudio","tray"],
+    // "custom/updater", 
+    // "group/notify"
+  },
+  {
+  "include": [
+  "$HOME/.config/waybar/Modules",
+  "$HOME/.config/waybar/ModulesWorkspaces",
+  "$HOME/.config/waybar/ModulesCustom",
+  "$HOME/.config/waybar/ModulesGroups",
+  "$HOME/.config/waybar/UserModules",
+  ],
+    "name": "bottombar",
+    "layer": "top",
+    "position": "bottom",
+    //"height": 30,
+    // "mode": "dock",
+    "exclusive": true,
+    "spacing": 2,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "reload_style_on_change": true,
+     "modules-left": [
+	"custom/cava_mviz",
+	"custom/playerctl",
+     ],
+     "modules-right": [
+	"tray",
+     ],
+    "modules-center": ["hyprland/workspaces#rw"],
+    //"modules-center": ["group/power"],
+    // "modules-right": [
+    //   "backlight",
+    //   "pulseaudio",
+    //   "idle_inhibitor",
+    //   "group/power"
+    // ],
+  }
+]
