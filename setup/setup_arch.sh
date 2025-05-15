@@ -298,7 +298,11 @@ nvim +PackerInstall
 # chmod +x install.sh
 # ./install.sh
 
+# end-4's illogical impulse 
+# bash <(curl -s "https://end-4.github.io/dots-hyprland-wiki/setup.sh")
+
 echo "Setup complete!"
+
 
 # Extras
 cat <<EOF
