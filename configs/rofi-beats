@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Install this first!!
+# $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 # add more args here according to preference
 ARGS="--volume=100"
 
