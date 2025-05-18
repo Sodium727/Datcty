@@ -7,10 +7,10 @@ TITLE=$(playerctl metadata title 2>/dev/null)
 
 # Check if a track is playing
 if [ "$STATUS" = "Playing" ]; then
-    notify-send -t 3000 "Now Playing" "$ARTIST - $TITLE"
+    notify-send "Now Playing" "$ARTIST - $TITLE"
 elif [ "$STATUS" = "Paused" ]; then
-    notify-send -t 3000 "Paused" "$ARTIST - $TITLE"
+    notify-send "Paused" "$ARTIST - $TITLE"
 else
-    notify-send -t 3000 "No media playing"
+    notify-send "No media playing"
 fi
 
