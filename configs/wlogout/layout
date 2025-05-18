@@ -1,0 +1,20 @@
+{
+  "action": "hyprlock",
+  "text": "Lock In",
+  "keybind": "l"
+},
+{
+  "action": "hyprctl dispatch exit",
+  "text": "Break Up T.T",
+  "keybind": "e"
+},
+{
+  "action": "systemctl reboot",
+  "text": "Rebirth",
+  "keybind": "r"
+},
+{
+  "action": "systemctl poweroff",
+  "text": "Quit W",
+  "keybind": "s"
+}
