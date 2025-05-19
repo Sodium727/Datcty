@@ -1,8 +1,38 @@
 {
   "layer": "top",
   "position": "top",
-  "modules-left": ["hyprland/workspaces"],
+  "modules-left": ["workspaces"],
   "modules-center": ["clock"],
-  "modules-right": ["pulseaudio", "battery"]
-}
+  "modules-right": ["pulseaudio", "backlight", "battery"],
 
+  "clock": {
+    "interval": 60,
+    "format": "{:%H:%M, %A, %b %d}",
+    "tooltip-format": "<small><tt>{calendar}</tt></small>",
+    "calendar": {
+      "mode": "month",            // show current month
+      "mode-mon-col": 3,          // (only for year mode)
+      // "weeks-pos": "left",        // show week numbers on the left
+      "on-scroll": 1,             // scroll inside tooltip to change month
+      "format": {
+        "months": "<b>{}</b>",    // bold month name
+        // "weekdays": "<span size='10'>{}</span>",
+        "today": "<u><b>{}</b></u>"
+      }
+    }
+  },
+
+  "pulseaudio": {
+    "scroll-step": 5.0,
+    // optional overrides:
+    //"on-scroll-up": "brightnessctl set +5%",
+    //"on-scroll-down": "brightnessctl set 5%-"
+  },
+
+  "backlight": {
+    "scroll-step": 5.0,
+    // optional overrides:
+    //"on-scroll-up": "brightnessctl set +5%",
+    //"on-scroll-down": "brightnessctl set 5%-"
+  }
+}

@@ -9,8 +9,7 @@ alias cd..='cd ..'
 alias cd-='cd -'
 alias cd/='cd /'
 
-alias pacman='sudo pacman -S --noconfirm --needed'
-alias paru='paru -S --needed'
+alias install='sudo pacman -S --noconfirm --needed'
 alias uninstall='sudo pacman -Rns'
 alias upgrade='sudo pacman -Syu --noconfirm'
 
