@@ -8,7 +8,7 @@
 # sudo pacman-key --populate archlinux
 
 # Essentials
-sudo pacman -Sy --noconfirm --needed git base-devel clang xclip dos2unix fastfetch qbittorrent gdb ripgrep neovim imv dosfstools ntfs-3g bat eza zoxide fcitx5 fcitx5-unikey fcitx5-qt fcitx5-gtk fcitx5-configtool mpv zsh kitty sddm firefox
+sudo pacman -Sy --noconfirm --needed git base-devel clang xclip dos2unix fastfetch qbittorrent gdb ripgrep neovim imv dosfstools ntfs-3g bat eza zoxide fcitx5 fcitx5-unikey fcitx5-qt fcitx5-gtk fcitx5-configtool mpv zsh kitty sddm firefox cliphist
 
 # For using Wine (and other stuffs)
 # sudo pacman -S --needed wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal v4l-utils lib32-v4l-utils libpulse lib32-libpulse libgpg-error lib32-libgpg-error alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib libjpeg-turbo lib32-libjpeg-turbo sqlite lib32-sqlite libxcomposite lib32-libxcomposite libxinerama lib32-libgcrypt libgcrypt lib32-libxinerama ncurses lib32-ncurses ocl-icd lib32-ocl-icd libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3 gst-plugins-base-libs lib32-gst-plugins-base-libs vulkan-icd-loader lib32-vulkan-icd-loader wine-staging winetricks vulkan-headers lib32-mesa lib32-vulkan-icd-loader mesa vulkan-intel gnutls lib32-gnutls vulkan-intel lib32-vulkan-intel wine-mono noto-fonts-cjk noto-fonts-emoji noto-fonts-extra noto-fonts
