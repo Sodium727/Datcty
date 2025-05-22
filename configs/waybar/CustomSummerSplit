@@ -1,7 +1,3 @@
-/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
-
-/* ### DUAL TOP and BOTTOM v 2### */
-
 /* Custom Waybar Config by Sodium727 */
 
 [
@@ -29,6 +25,7 @@
     // "custom/updater", 
     // "group/notify"
   },
+
   {
   "include": [
   "$HOME/.config/waybar/Modules",

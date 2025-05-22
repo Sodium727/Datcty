@@ -1,9 +1,9 @@
 {
   "layer": "top",
   "position": "top",
-  "modules-left": ["workspaces"],
+  "modules-left": ["hyprland/workspaces#rw"],
   "modules-center": ["clock"],
-  "modules-right": ["pulseaudio", "backlight", "battery"],
+  "modules-right": ["pulseaudio", "backlight", "tray"],
 
   "clock": {
     "interval": 60,

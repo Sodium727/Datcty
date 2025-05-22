@@ -1,20 +1,20 @@
 {
   "action": "hyprlock",
   "text": "Lock In",
-  "keybind": "l"
 },
 {
   "action": "hyprctl dispatch exit",
-  "text": "Break Up T.T",
-  "keybind": "e"
+  "text": "Change DE/WM",
 },
 {
   "action": "systemctl reboot",
   "text": "Rebirth",
-  "keybind": "r"
 },
 {
-  "action": "systemctl poweroff",
+  "action": "poweroff",
   "text": "Quit W",
-  "keybind": "s"
+},
+{
+  "action": "hyprlock && systemctl suspend",
+  "text": "Quick Nap",
 }
