@@ -36,7 +36,7 @@ menu(){
 }
 
 main() {
-	choice=$(menu | rofi -dmenu | cut -d. -f1)
+	choice=$(menu | wofi -dmenu | cut -d. -f1)
 
 	case $choice in
 		1)
