@@ -30,7 +30,7 @@
   },
 
   "backlight": {
-    "scroll-step": 5.0,
+    "scroll-step": 1.0
     // optional overrides:
     //"on-scroll-up": "brightnessctl set +5%",
     //"on-scroll-down": "brightnessctl set 5%-"

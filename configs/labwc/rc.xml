@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+
+<!--
+  This is a very simple config file with many options missing. For a complete
+  set of options with comments, see docs/rc.xml.all
+-->
+
+<labwc_config>
+
+  <theme>
+    <name></name>
+    <cornerRadius>8</cornerRadius>
+    <font name="sans" size="10" />
+  </theme>
+
+  <keyboard>
+    <default />
+    <!-- Use a different terminal emulator -->
+    <keybind key="W-Return">
+      <action name="Execute" command="foot" />
+    </keybind>
+
+    <keybind key="W-t">
+      <action name="Execute" command="foot" />
+    </keybind>
+
+    <keybind key="W-w">
+      <action name="Execute" command="waypaper" />
+    </keybind>
+
+    <keybind key="W-l">
+      <action name="Execute" command="hyprlock" />
+    </keybind>
+
+    <keybind key="W-e">
+      <action name="Execute" command="thunar" />
+    </keybind>
+
+    <keybind key="W-d">
+      <action name="Execute" command="wofi --show drun" />
+    </keybind>
+
+    <!-- Clipboard Manager Keybind -->
+    <keybind key="W-v">
+      <action name="Execute" command="sh -c 'cliphist list | wofi --dmenu | cliphist decode | wl-copy'" />
+    </keybind>
+
+    <!-- ✨ Media Control Keybinds ✨ -->
+    <!-- Play / Pause -->
+    <keybind key="XF86AudioPlay">
+      <action name="Execute" command="playerctl play-pause" />
+    </keybind>
+
+    <!-- Next Track -->
+    <keybind key="XF86AudioNext">
+      <action name="Execute" command="playerctl next" />
+    </keybind>
+
+    <!-- Previous Track -->
+    <keybind key="XF86AudioPrev">
+      <action name="Execute" command="playerctl previous" />
+    </keybind>
+
+    <!-- Volume Up -->
+    <keybind key="XF86AudioRaiseVolume">
+      <action name="Execute" command="pactl set-sink-volume @DEFAULT_SINK@ +5%" />
+    </keybind>
+
+    <!-- Volume Down -->
+    <keybind key="XF86AudioLowerVolume">
+      <action name="Execute" command="pactl set-sink-volume @DEFAULT_SINK@ -5%" />
+    </keybind>
+
+    <!-- Mute / Unmute -->
+    <keybind key="XF86AudioMute">
+      <action name="Execute" command="pactl set-sink-mute @DEFAULT_SINK@ toggle" />
+    </keybind>
+
+    <repeat delay="180" rate="80" />
+  </keyboard>
+
+  <mouse>
+    <default />
+    <!-- Show a custom menu on desktop right click -->
+    <context name="Root">
+      <mousebind button="Right" action="Press">
+        <action name="ShowMenu" menu="some-custom-menu" />
+      </mousebind>
+    </context>
+  </mouse>
+
+</labwc_config>
