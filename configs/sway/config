@@ -14,14 +14,22 @@ set $mod Mod4
 # set $up k
 # set $right l
 # Your preferred terminal emulator
-set $term foot
+set $term alacritty
 # Your preferred application launcher
-set $menu fuzzel
+set $menu tofi-drun --drun-launch=true \
+	  --font /usr/share/fonts/TTF/JetBrainsMonoNerdFont-Regular.ttf \
+	  --num-results 5 \
+	  --hint-font false \
+	  --ascii-input true \
+	  --width 777 \
+	  --height 333
+# Your preferred file manager
+set $fileMan thunar
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/Pictures/Wallpapers/rain.jpg fill
 #
 # Example configuration:
 #
@@ -34,9 +42,9 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # Example configuration:
 #
 exec swayidle -w \
-     timeout 300 'swaylock -f -c 000000' \
+     timeout 300 'swaylock -i ~/Pictures/Wallpapers/Northern\ Lights3.png' \
      timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-     before-sleep 'swaylock -f -c 000000'
+     before-sleep 'swaylock -i ~/Pictures/Wallpapers/Northern\ Lights3.png'
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -53,9 +61,11 @@ exec swayidle -w \
 #     middle_emulation enabled
 #   }
 #
-#   input type:keyboard {
-#     xkb_layout "eu"
-#   }
+input type:keyboard {
+  xkb_layout "us"
+  repeat_delay 180
+  repeat_rate 80
+}
 #
 # You can also configure each device individually.
 # Read `man 5 sway-input` for more information about this section.
@@ -66,12 +76,18 @@ exec swayidle -w \
 #
   # Start a terminal
   bindsym $mod+Return exec $term
+  bindsym $mod+t exec $term
+
+  # Start a file manager
+  bindsym $mod+e exec $fileMan
 
   # Kill focused window
   bindsym $mod+q kill
 
+  bindsym $mod+l exec swaylock -i ~/Pictures/Wallpapers/Northern\ Lights3.png
+
   # Start your launcher
-  bindsym $mod+d exec $menu
+  bindsym $mod+a exec $menu
 
   # Drag floating windows by holding down $mod and left mouse button.
   # Resize them with right mouse button + $mod.
@@ -146,9 +162,9 @@ exec swayidle -w \
   # bindsym $mod+v splitv
 
   # Switch the current container between different layout styles
-  bindsym $mod+s layout stacking
+  # bindsym $mod+s layout stacking
   bindsym $mod+w layout tabbed
-  bindsym $mod+e layout toggle split
+  bindsym $mod+s layout toggle split
 
   # Make the current focus fullscreen
   bindsym $mod+f fullscreen
@@ -222,9 +238,13 @@ bar {
   # The default just shows the current date and time.
   status_command while date +'%Y-%m-%d %X'; do sleep 1; done
 
+  font "JetBrainsMono Nerd Font 10"
+  # To find the font, use:
+  # pango-list | grep -i 'something'
+
   colors {
-    statusline #ffffff
-    background #323232
+    statusline #000000
+    background #32323200
     inactive_workspace #32323200 #32323200 #5c5c5c
   }
 }
@@ -235,7 +255,9 @@ include /etc/sway/config.d/*
 exec wl-paste --watch cliphist store
 
 # Show history with Mod+v
-bindsym $mod+v exec cliphist list | fuzzel -d -p "Clipboard" | cliphist decode | wl-copy
+bindsym $mod+v exec cliphist list | tofi | cliphist decode | wl-copy
 
 # Region screenshot + clipboard (no save) using Grim
-bindsym $mod+Print exec grim -g "$(slurp)" - | wl-copy
+bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
+
+exec fcitx5

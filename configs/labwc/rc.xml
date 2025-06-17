@@ -14,7 +14,7 @@
   </theme>
 
   <keyboard>
-    <default />
+    <default/>
     <!-- Use a different terminal emulator -->
     <keybind key="W-Return">
       <action name="Execute" command="foot" />
@@ -76,7 +76,8 @@
       <action name="Execute" command="pactl set-sink-mute @DEFAULT_SINK@ toggle" />
     </keybind>
 
-    <repeat delay="180" rate="80" />
+    <repeatRate>80</repeatRate>
+    <repeatDelay>180</repeatDelay>
   </keyboard>
 
   <mouse>

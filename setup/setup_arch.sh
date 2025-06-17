@@ -9,32 +9,38 @@
 # sudo pacman-key --populate archlinux
 
 # Packages (general)
-sudo pacman -Sy --noconfirm --needed git base-devel clang wl-clipboard less qbittorrent gdb ripgrep neovim imv bat eza zoxide fcitx5 fcitx5-unikey fcitx5-config-qt mpv zsh kitty sddm firefox cliphist python-pynvim tmux libnotify flatpak ttf-jetbrains-mono-nerd 7zip waybar
+sudo pacman -Sy --noconfirm --needed git base-devel less qbittorrent ripgrep neovim imv bat eza zoxide fcitx5 fcitx5-unikey fcitx5-config-qt mpv zsh firefox flatpak ttf-jetbrains-mono-nerd 7zip alacritty
+
+# Packages (Sway)
+sudo pacman -S --noconfirm --needed sway swaybg swaylock grim slurp 
 
 # Packages (Hyprland)
-# sudo pacman -S --noconfirm --needed hyprlock hyprland hyprpaper hyprpolkitagent hyprsunset hyprpicker
+# sudo pacman -S --noconfirm --needed hyprlock hyprland hyprpaper hyprpolkitagent hyprsunset hyprpicker waybar
 
 # Install yay
-git clone https://aur.archlinux.org/yay-bin.git && cd ~/yay-bin && makepkg -si
+git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
 
 # AUR Packages
-yay -S --noconfirm --needed waypaper wlogout
+# yay -S --noconfirm --needed waypaper wlogout
 
 # AUR Packages (Hyprland)
 # yay -S --noconfirm --needed hyprshot 
+
+# AUR Packages (Sway)
+yay -S --noconfirm --needed tofi
 
 # Install Packer plugin manager for Neovim
 # git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # pull the nvim/ from configs/ to ~/.config and run :PackerSync in neovim
 
-# JaKooLit Hyprland Setup
+# JaKooLit's hyprland 
 # git clone https://github.com/JaKooLit/Arch-Hyprland.git ~/Arch-Hyprland
 # cd ~/Arch-Hyprland
 # chmod +x install.sh
 # ./install.sh
 
-# end-4's illogical impulse
+# end-4's illogical impulse hyprland
 # bash <(curl -s "https://end-4.github.io/dots-hyprland-wiki/setup.sh")
 
 # Zsh Setup
