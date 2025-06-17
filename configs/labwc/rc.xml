@@ -29,7 +29,7 @@
     </keybind>
 
     <keybind key="W-l">
-      <action name="Execute" command="hyprlock" />
+      <action name="Execute" command="swaylock" />
     </keybind>
 
     <keybind key="W-e">
