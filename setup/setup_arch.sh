@@ -12,7 +12,7 @@
 sudo pacman -Sy --noconfirm --needed git base-devel less qbittorrent ripgrep neovim imv bat eza zoxide fcitx5 fcitx5-unikey fcitx5-config-qt mpv zsh firefox flatpak ttf-jetbrains-mono-nerd 7zip alacritty
 
 # Packages (Sway)
-sudo pacman -S --noconfirm --needed sway swaybg swaylock grim slurp 
+sudo pacman -S --noconfirm --needed sway swaybg swaylock grim slurp mako
 
 # Packages (Hyprland)
 # sudo pacman -S --noconfirm --needed hyprlock hyprland hyprpaper hyprpolkitagent hyprsunset hyprpicker waybar
@@ -21,10 +21,10 @@ sudo pacman -S --noconfirm --needed sway swaybg swaylock grim slurp
 git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
 
 # AUR Packages
-# yay -S --noconfirm --needed waypaper wlogout
+yay -S --noconfirm --needed ventoy-bin
 
 # AUR Packages (Hyprland)
-# yay -S --noconfirm --needed hyprshot 
+# yay -S --noconfirm --needed hyprshot wlogout waypaper
 
 # AUR Packages (Sway)
 yay -S --noconfirm --needed tofi
@@ -47,7 +47,7 @@ yay -S --noconfirm --needed tofi
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+# git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
  
 cat <<EOF
 Remember to copy everything from configs/zshrc to ~/.zshrc
