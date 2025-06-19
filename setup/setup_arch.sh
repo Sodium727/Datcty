@@ -9,10 +9,10 @@
 # sudo pacman-key --populate archlinux
 
 # Packages (general)
-sudo pacman -Sy --noconfirm --needed git base-devel less qbittorrent ripgrep neovim imv bat eza zoxide fcitx5 fcitx5-unikey fcitx5-config-qt mpv zsh firefox flatpak ttf-jetbrains-mono-nerd 7zip alacritty
+sudo pacman -Sy --noconfirm --needed git base-devel less qbittorrent ripgrep neovim imv bat eza zoxide fcitx5 fcitx5-unikey fcitx5-config-qt mpv zsh firefox flatpak ttf-jetbrains-mono-nerd 7zip alacritty noto-fonts-cjk thunar
 
 # Packages (Sway)
-sudo pacman -S --noconfirm --needed sway swaybg swaylock grim slurp mako
+sudo pacman -S --noconfirm --needed sway swaybg swaylock grim slurp mako cliphist swayidle
 
 # Packages (Hyprland)
 # sudo pacman -S --noconfirm --needed hyprlock hyprland hyprpaper hyprpolkitagent hyprsunset hyprpicker waybar

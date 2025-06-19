@@ -17,11 +17,13 @@ set $mod Mod4
 set $term alacritty
 # Your preferred application launcher
 set $menu tofi-drun --drun-launch=true \
+	  --fuzzy-match=true \
+	  --prompt-text="Need something?" \
 	  --font /usr/share/fonts/TTF/JetBrainsMonoNerdFont-Regular.ttf \
 	  --num-results 5 \
 	  --hint-font false \
 	  --ascii-input true \
-	  --width 777 \
+	  --width 999 \
 	  --height 333
 # Your preferred file manager
 set $fileMan thunar
@@ -42,9 +44,11 @@ output * bg ~/Pictures/Wallpapers/rain.jpg fill
 # Example configuration:
 #
 exec swayidle -w \
-     timeout 300 'swaylock -i ~/Pictures/Wallpapers/Northern\ Lights3.png' \
-     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-     before-sleep 'swaylock -i ~/Pictures/Wallpapers/Northern\ Lights3.png'
+	timeout 300 'swaylock -i ~/Pictures/Wallpapers/Northern\ Lights3.png' \
+	timeout 600 'wlopm --off \*' \
+	resume 'wlopm --on \*' \
+	before-sleep 'swaylock -f -i /home/dat/Pictures/Wallpapers/Northern\ Lights3.png' \
+	>/dev/null 2>&1 &
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -216,11 +220,17 @@ bindsym $mod+r mode "resize"
 #
 # Utilities:
 #
-  # Special keys to adjust volume via PulseAudio
-  bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-  bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
-  bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
-  bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+
+  # Volume controls
+  bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+  bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+  bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+  bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+  # Media playback controls
+  bindsym --locked XF86AudioPlay exec playerctl play-pause
+  bindsym XF86AudioNext exec playerctl next
+  bindsym XF86AudioPrev exec playerctl previous
+  bindsym XF86AudioStop exec playerctl stop
   # Special keys to adjust brightness via brightnessctl
   bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
   bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
@@ -252,7 +262,7 @@ bar {
 include /etc/sway/config.d/*
 
 # Start monitoring
-exec wl-paste --watch cliphist store
+exec wl-paste --watch cliphist store >/dev/null 2>&1 &
 
 # Show history with Mod+v
 bindsym $mod+v exec cliphist list | tofi | cliphist decode | wl-copy
@@ -260,12 +270,14 @@ bindsym $mod+v exec cliphist list | tofi | cliphist decode | wl-copy
 # Region screenshot + clipboard (no save) using Grim
 bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
 
-exec fcitx5
-exec mako
+exec fcitx5 >/dev/null 2>&1 &
+exec mako >/dev/null 2>&1 &
 
 # Make notifications and pop-ups float
 for_window [window_type="notification"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
+
+bindsym Ctrl+Alt+p exec ~/.config/sway/power.sh
 
