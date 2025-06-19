@@ -270,9 +270,8 @@ bindsym $mod+v exec cliphist list | tofi \
 	  			      --num-results 12 \
 	  			      --hint-font false \
 	  			      --ascii-input true \
-	  			      --width 999 \
 	  			      --height 555 \
-  		    | cliphist | decode | wl-copy
+  		    | cliphist decode | wl-copy
 
 # Region screenshot + clipboard (no save) using Grim
 bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
