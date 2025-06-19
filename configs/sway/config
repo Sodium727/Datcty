@@ -265,7 +265,14 @@ include /etc/sway/config.d/*
 exec wl-paste --watch cliphist store >/dev/null 2>&1 &
 
 # Show history with Mod+v
-bindsym $mod+v exec cliphist list | tofi | cliphist decode | wl-copy
+bindsym $mod+v exec cliphist list | tofi \
+	  			      --prompt-text="Paste?" \
+	  			      --num-results 12 \
+	  			      --hint-font false \
+	  			      --ascii-input true \
+	  			      --width 999 \
+	  			      --height 555 \
+  		    | cliphist | decode | wl-copy
 
 # Region screenshot + clipboard (no save) using Grim
 bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
